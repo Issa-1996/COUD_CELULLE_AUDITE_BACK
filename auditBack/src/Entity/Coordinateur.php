@@ -2,14 +2,26 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
-use App\Repository\CoordinateurRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\CoordinateurRepository;
+use Doctrine\Common\Collections\Collection;
+use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ApiResource()
+ * @ApiResource(
+ *  routePrefix="/coud",
+ *  attributes={
+ *         "security"="is_granted('ROLE_ADMIN')", 
+ *         "security_message"="Vous n'avez pas access à cette Ressource",
+ *     },
+ *     collectionOperations={"POST","GET"},
+ *     itemOperations={"PUT", "GET"},
+ *  normalizationContext={"groups"={"Coordinateur:read"}},
+ *  denormalizationContext={"groups"={"Coordinateur:write"}},
+ * )
  * @ORM\Entity(repositoryClass=CoordinateurRepository::class)
  */
 class Coordinateur extends User
@@ -17,18 +29,33 @@ class Coordinateur extends User
 
     /**
      * @ORM\OneToMany(targetEntity=FicheDeControle::class, mappedBy="coordinateur")
+     * @ApiSubresource()
+     * @Groups({"Coordinateur:read"})
+     * @Groups({"Coordinateur:write"})
      */
     private $FicheDeControle;
 
     /**
      * @ORM\OneToMany(targetEntity=Rapport::class, mappedBy="coordinateur")
+     * @ApiSubresource()
+     * @Groups({"Coordinateur:read"})
+     * @Groups({"Coordinateur:write"})
      */
     private $rapports;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Courier::class, mappedBy="coordinateur")
+     * @ApiSubresource()
+     * @Groups({"Coordinateur:read"})
+     * @Groups({"Coordinateur:write"})
+     */
+    private $courier;
 
     public function __construct()
     {
         $this->FicheDeControle = new ArrayCollection();
         $this->rapports = new ArrayCollection();
+        $this->courier = new ArrayCollection();
     }
 
     
@@ -87,6 +114,36 @@ class Coordinateur extends User
             // set the owning side to null (unless already changed)
             if ($rapport->getCoordinateur() === $this) {
                 $rapport->setCoordinateur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Courier>
+     */
+    public function getCourier(): Collection
+    {
+        return $this->courier;
+    }
+
+    public function addCourier(Courier $courier): self
+    {
+        if (!$this->courier->contains($courier)) {
+            $this->courier[] = $courier;
+            $courier->setCoordinateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCourier(Courier $courier): self
+    {
+        if ($this->courier->removeElement($courier)) {
+            // set the owning side to null (unless already changed)
+            if ($courier->getCoordinateur() === $this) {
+                $courier->setCoordinateur(null);
             }
         }
 

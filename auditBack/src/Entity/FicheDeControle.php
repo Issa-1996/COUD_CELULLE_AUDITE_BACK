@@ -2,12 +2,23 @@
 
 namespace App\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\FicheDeControleRepository;
-use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ApiResource()
+ * @ApiResource(
+ *  routePrefix="/coud",
+ *  attributes={
+ *         "security"="is_granted('ROLE_ADMIN')", 
+ *         "security_message"="Vous n'avez pas access à cette Ressource",
+ *     },
+ *     collectionOperations={"POST","GET"},
+ *     itemOperations={"PUT", "GET"},
+ *  normalizationContext={"groups"={"FicheDeControle:read"}},
+ *  denormalizationContext={"groups"={"FicheDeControle:write"}},
+ * )
  * @ORM\Entity(repositoryClass=FicheDeControleRepository::class)
  */
 class FicheDeControle
@@ -16,36 +27,49 @@ class FicheDeControle
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"FicheDeControle:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"FicheDeControle:read"})
+     * @Groups({"FicheDeControle:write"})
      */
     private $nomControleur;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"FicheDeControle:read"})
+     * @Groups({"FicheDeControle:write"})
      */
     private $avisControleur;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"FicheDeControle:read"})
+     * @Groups({"FicheDeControle:write"})
      */
     private $motivation;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"FicheDeControle:read"})
+     * @Groups({"FicheDeControle:write"})
      */
     private $recommandations;
 
     /**
      * @ORM\ManyToOne(targetEntity=Controleurs::class, inversedBy="FicheDeControle")
+     * @Groups({"FicheDeControle:read"})
+     * @Groups({"FicheDeControle:write"})
      */
     private $controleurs;
 
     /**
      * @ORM\ManyToOne(targetEntity=Coordinateur::class, inversedBy="FicheDeControle")
+     * @Groups({"FicheDeControle:read"})
+     * @Groups({"FicheDeControle:write"})
      */
     private $coordinateur;
 

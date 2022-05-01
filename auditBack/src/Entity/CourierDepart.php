@@ -2,12 +2,23 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
-use App\Repository\CourierDepartRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\CourierDepartRepository;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ApiResource()
+ * @ApiResource(
+ *  routePrefix="/coud",
+ *  attributes={
+ *         "security"="is_granted('ROLE_ADMIN')", 
+ *         "security_message"="Vous n'avez pas access à cette Ressource",
+ *     },
+ *     collectionOperations={"POST","GET"},
+ *     itemOperations={"PUT", "GET"},
+ *  normalizationContext={"groups"={"CourierDepart:read"}},
+ *  denormalizationContext={"groups"={"CourierDepart:write"}},
+ * )
  * @ORM\Entity(repositoryClass=CourierDepartRepository::class)
  */
 class CourierDepart extends Courier
@@ -15,31 +26,49 @@ class CourierDepart extends Courier
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"CourierDepart:read"})
+     * @Groups({"CourierDepart:write"})
+     * @Groups({"Facture:read"})
      */
     private $dateDepart;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"CourierDepart:read"})
+     * @Groups({"CourierDepart:write"})
+     * @Groups({"Facture:read"})
      */
     private $destination;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"CourierDepart:read"})
+     * @Groups({"CourierDepart:write"})
+     * @Groups({"Facture:read"})
      */
     private $nombrePiece;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"CourierDepart:read"})
+     * @Groups({"CourierDepart:write"})
+     * @Groups({"Facture:read"})
      */
     private $numeroArchive;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"CourierDepart:read"})
+     * @Groups({"CourierDepart:write"})
+     * @Groups({"Facture:read"})
      */
     private $observation;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"CourierDepart:read"})
+     * @Groups({"CourierDepart:write"})
+     * @Groups({"Facture:read"})
      */
     private $numeroOrdre;
 

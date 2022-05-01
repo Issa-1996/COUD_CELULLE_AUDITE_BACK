@@ -2,14 +2,26 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
-use App\Repository\RapportRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\RapportRepository;
+use Doctrine\Common\Collections\Collection;
+use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ApiResource()
+ * @ApiResource(
+ *  routePrefix="/coud",
+ *  attributes={
+ *         "security"="is_granted('ROLE_ADMIN')", 
+ *         "security_message"="Vous n'avez pas access à cette Ressource",
+ *     },
+ *     collectionOperations={"POST","GET"},
+ *     itemOperations={"PUT", "GET"},
+ *  normalizationContext={"groups"={"Rapport:read"}},
+ *  denormalizationContext={"groups"={"Rapport:write"}},
+ * )
  * @ORM\Entity(repositoryClass=RapportRepository::class)
  */
 class Rapport
@@ -18,21 +30,39 @@ class Rapport
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"Rapport:read"})
+     * @Groups({"Rapport:write"})
+     * @Groups({"Courier:read"})
+     * @Groups({"Courier:write"})
+     * @Groups({"CourierDepart:read"})
+     * @Groups({"CourierDepart:write"})
+     * @Groups({"CourierArriver:read"})
+     * @Groups({"CourierArriver:write"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"Rapport:read"})
+     * @Groups({"Rapport:write"})
+     * @Groups({"Courier:read"})
+     * @Groups({"CourierDepart:read"})
+     * @Groups({"CourierArriver:read"})
      */
     private $date;
 
     /**
      * @ORM\OneToMany(targetEntity=Courier::class, mappedBy="rapport")
+     * @ApiSubresource()
+     * @Groups({"Rapport:read"})
+     * @Groups({"Rapport:write"})
      */
     private $courier;
 
     /**
      * @ORM\ManyToOne(targetEntity=Coordinateur::class, inversedBy="rapports")
+     * @Groups({"Rapport:read"})
+     * @Groups({"Rapport:write"})
      */
     private $coordinateur;
 

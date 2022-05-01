@@ -5,15 +5,28 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\CourierRepository;
 use Doctrine\ORM\Mapping\InheritanceType;
+use Doctrine\ORM\Mapping\DiscriminatorMap;
 use Doctrine\Common\Collections\Collection;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ApiResource()
+ * @ApiResource(
+ *  routePrefix="/coud",
+ *  attributes={
+ *         "security"="is_granted('ROLE_ADMIN')", 
+ *         "security_message"="Vous n'avez pas access à cette Ressource",
+ *     },
+ *     collectionOperations={"POST","GET"},
+ *     itemOperations={"PUT", "GET"},
+ *  normalizationContext={"groups"={"Courier:read"}},
+ *  denormalizationContext={"groups"={"Courier:write"}},
+ * )
  * @ORM\Entity(repositoryClass=CourierRepository::class)
  * @ORM\InheritanceType("JOINED")
- * @ORM\DiscriminatorMap({"courierDepart" = "CourierDepart", "courierArriver" = "CourierArriver"})
+ * @ORM\DiscriminatorMap({"courier" = "Courier","courierDepart" = "CourierDepart", "courierArriver" = "CourierArriver"})
  */
 class Courier
 {
@@ -21,33 +34,78 @@ class Courier
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"Courier:read"})
+     * @Groups({"Rapport:read"})
+     * @Groups({"CourierArriver:read"})
+     * @Groups({"CourierDepart:read"}) 
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"Courier:read"})
+     * @Groups({"Courier:write"})
+     * @Groups({"CourierArriver:read"})
+     * @Groups({"CourierArriver:write"})
+     * @Groups({"CourierDepart:read"})
+     * @Groups({"CourierDepart:write"})
      */
     private $numeroCourier;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"Courier:read"})
+     * @Groups({"Courier:write"})
+     * @Groups({"CourierArriver:read"})
+     * @Groups({"CourierArriver:write"})
+     * @Groups({"CourierDepart:read"})
+     * @Groups({"CourierDepart:write"})
      */
     private $object;
 
     /**
      * @ORM\ManyToMany(targetEntity=Controleurs::class, inversedBy="couriers")
+     * @Groups({"Courier:read"})
+     * @Groups({"Courier:write"})
+     * @Groups({"CourierArriver:read"})
+     * @Groups({"CourierArriver:write"})
+     * @Groups({"CourierDepart:read"})
+     * @Groups({"CourierDepart:write"})
      */
     private $controleurs;
 
     /**
      * @ORM\ManyToOne(targetEntity=Rapport::class, inversedBy="courier")
+     * @Groups({"Courier:read"})
+     * @Groups({"Courier:write"})
+     * @Groups({"CourierArriver:read"})
+     * @Groups({"CourierArriver:write"})
+     * @Groups({"CourierDepart:read"})
+     * @Groups({"CourierDepart:write"})
      */
     private $rapport;
 
     /**
      * @ORM\ManyToOne(targetEntity=Assistante::class, inversedBy="courier")
+     * @Groups({"Courier:read"})
+     * @Groups({"Courier:write"})
+     * @Groups({"CourierArriver:read"})
+     * @Groups({"CourierArriver:write"})
+     * @Groups({"CourierDepart:read"})
+     * @Groups({"CourierDepart:write"})
      */
     private $assistante;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Coordinateur::class, inversedBy="courier")
+     * @Groups({"Courier:read"})
+     * @Groups({"Courier:write"})
+     * @Groups({"CourierArriver:read"})
+     * @Groups({"CourierArriver:write"})
+     * @Groups({"CourierDepart:read"})
+     * @Groups({"CourierDepart:write"})
+     */
+    private $coordinateur;
 
     public function __construct()
     {
@@ -127,6 +185,18 @@ class Courier
     public function setAssistante(?Assistante $assistante): self
     {
         $this->assistante = $assistante;
+
+        return $this;
+    }
+
+    public function getCoordinateur(): ?Coordinateur
+    {
+        return $this->coordinateur;
+    }
+
+    public function setCoordinateur(?Coordinateur $coordinateur): self
+    {
+        $this->coordinateur = $coordinateur;
 
         return $this;
     }

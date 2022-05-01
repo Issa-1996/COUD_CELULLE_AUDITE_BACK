@@ -2,25 +2,43 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
-use App\Repository\ControleursRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ControleursRepository;
+use Doctrine\Common\Collections\Collection;
+use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ApiResource()
+ * @ApiResource(
+ *  routePrefix="/coud",
+ *  attributes={
+ *         "security"="is_granted('ROLE_ADMIN')", 
+ *         "security_message"="Vous n'avez pas access à cette Ressource",
+*     },
+*     collectionOperations={"POST","GET"},
+*     itemOperations={"PUT", "GET"},
+*   normalizationContext={"groups"={"Controleurs:read"}},
+ *  denormalizationContext={"groups"={"Controleurs:write"}},
+ * )
  * @ORM\Entity(repositoryClass=ControleursRepository::class)
  */
 class Controleurs extends User
 {
     /**
      * @ORM\OneToMany(targetEntity=FicheDeControle::class, mappedBy="controleurs")
+     * @ApiSubresource()
+     * @Groups({"Controleurs:read"})
+     * @Groups({"Controleurs:write"})
      */
     private $FicheDeControle;
 
     /**
      * @ORM\ManyToMany(targetEntity=Courier::class, mappedBy="controleurs")
+     * @ApiSubresource()
+     * @Groups({"Controleurs:read"})
+     * @Groups({"Controleurs:write"})
      */
     private $couriers;
 

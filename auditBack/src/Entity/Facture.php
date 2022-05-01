@@ -2,12 +2,24 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
-use App\Repository\FactureRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\FactureRepository;
+use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ApiResource()
+ * @ApiResource(
+ *  routePrefix="/coud",
+ *  attributes={
+ *         "security"="is_granted('ROLE_ADMIN')", 
+ *         "security_message"="Vous n'avez pas access à cette Ressource",
+ *     },
+ *     collectionOperations={"POST","GET"},
+ *     itemOperations={"PUT", "GET"},
+ *  normalizationContext={"groups"={"Facture:read"}},
+ *  denormalizationContext={"groups"={"Facture:write"}},
+ * )
  * @ORM\Entity(repositoryClass=FactureRepository::class)
  */
 class Facture
@@ -16,36 +28,51 @@ class Facture
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"Facture:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"Facture:read"})
+     * @Groups({"Facture:write"})
      */
     private $numeroFacture;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"Facture:read"})
+     * @Groups({"Facture:write"})
      */
     private $montant;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"Facture:read"})
+     * @Groups({"Facture:write"})
      */
     private $object;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"Facture:read"})
+     * @Groups({"Facture:write"})
      */
     private $beneficaire;
 
     /**
      * @ORM\OneToOne(targetEntity=CourierDepart::class, cascade={"persist", "remove"})
+     * @ApiSubresource()
+     * @Groups({"Facture:read"})
+     * @Groups({"Facture:write"})
      */
     private $courierDepart;
 
     /**
      * @ORM\OneToOne(targetEntity=CourierArriver::class, cascade={"persist", "remove"})
+     * @ApiSubresource()
+     * @Groups({"Facture:read"})
+     * @Groups({"Facture:write"})
      */
     private $courierArriver;
 

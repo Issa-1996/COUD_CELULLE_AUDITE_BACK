@@ -7,6 +7,7 @@ use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping\InheritanceType;
 use Doctrine\ORM\Mapping\DiscriminatorMap;
 use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
@@ -14,7 +15,17 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorMap({"user" = "User", "assistante" = "Assistante", "controleurs" = "Controleurs", "coordinateur" = "Coordinateur"})
- * @ApiResource()
+ * @ApiResource(
+ *  routePrefix="/coud",
+ *  attributes={
+ *         "security"="is_granted('ROLE_ADMIN')", 
+ *         "security_message"="Vous n'avez pas access à cette Ressource",
+ *     },
+ *     collectionOperations={"POST","GET"},
+ *     itemOperations={"PUT", "GET"},
+ *  normalizationContext={"groups"={"User:read"}},
+ *  denormalizationContext={"groups"={"User:write"}},
+ * )
  */
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -22,52 +33,190 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"User:read"})
+     * @Groups({"Assistante:read"})
+     * @Groups({"Controleurs:read"})
+     * @Groups({"Coordinateur:read"})
+     * @Groups({"Courier:read"})
+     * @Groups({"Courier:write"})
+     * @Groups({"Rapport:read"})
+     * @Groups({"Facture:read"})
+     * @Groups({"CourierDepart:read"})
+     * @Groups({"CourierDepart:write"})
+     * @Groups({"CourierArriver:read"})
+     * @Groups({"CourierArriver:write"})
+     * @Groups({"FicheDeControle:read"})
+     * @Groups({"FicheDeControle:write"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Groups({"User:read"})
+     * @Groups({"User:write"})
+     * @Groups({"Assistante:read"})
+     * @Groups({"Assistante:write"})
+     * @Groups({"Controleurs:read"})
+     * @Groups({"Controleurs:write"})
+     * @Groups({"Coordinateur:read"})
+     * @Groups({"Coordinateur:write"})
+     * @Groups({"Courier:read"})
+     * @Groups({"Rapport:read"})
+     * @Groups({"Facture:read"})
+     * @Groups({"Facture:write"})
+     * @Groups({"CourierDepart:read"})
+     * @Groups({"CourierArriver:read"})
+     * @Groups({"FicheDeControle:read"})
      */
     private $username;
 
     /**
      * @ORM\Column(type="json")
+     * @Groups({"User:read"})
+     * @Groups({"User:write"})
+     * @Groups({"Assistante:read"})
+     * @Groups({"Assistante:write"})
+     * @Groups({"Controleurs:read"})
+     * @Groups({"Controleurs:write"})
+     * @Groups({"Coordinateur:read"})
+     * @Groups({"Coordinateur:write"})
+     * @Groups({"Courier:read"})
+     * @Groups({"Rapport:read"})
+     * @Groups({"Facture:read"})
+     * @Groups({"Facture:write"})
+     * @Groups({"CourierDepart:read"})
+     * @Groups({"CourierArriver:read"})
+     * @Groups({"FicheDeControle:read"})
      */
     private $roles = [];
 
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
+     * @Groups({"User:write"})
+     * @Groups({"Assistante:write"})
+     * @Groups({"Controleurs:write"})
+     * @Groups({"Coordinateur:write"})
      */
     private $password;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"User:read"})
+     * @Groups({"User:write"})
+     * @Groups({"Assistante:read"})
+     * @Groups({"Assistante:write"})
+     * @Groups({"Controleurs:read"})
+     * @Groups({"Controleurs:write"})
+     * @Groups({"Coordinateur:read"})
+     * @Groups({"Coordinateur:write"})
+     * @Groups({"Courier:read"})
+     * @Groups({"Rapport:read"})
+     * @Groups({"Facture:read"})
+     * @Groups({"Facture:write"})
+     * @Groups({"CourierDepart:read"})
+     * @Groups({"CourierArriver:read"})
+     * @Groups({"FicheDeControle:read"})
      */
     private $matricule;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"User:read"})
+     * @Groups({"User:write"})
+     * @Groups({"Assistante:read"})
+     * @Groups({"Assistante:write"})
+     * @Groups({"Controleurs:read"})
+     * @Groups({"Controleurs:write"})
+     * @Groups({"Coordinateur:read"})
+     * @Groups({"Coordinateur:write"})
+     * @Groups({"Courier:read"})
+     * @Groups({"Rapport:read"})
+     * @Groups({"Facture:read"})
+     * @Groups({"Facture:write"})
+     * @Groups({"CourierDepart:read"})
+     * @Groups({"CourierArriver:read"})
+     * @Groups({"FicheDeControle:read"})
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"User:read"})
+     * @Groups({"User:write"})
+     * @Groups({"Assistante:read"})
+     * @Groups({"Assistante:write"})
+     * @Groups({"Controleurs:read"})
+     * @Groups({"Controleurs:write"})
+     * @Groups({"Coordinateur:read"})
+     * @Groups({"Coordinateur:write"})
+     * @Groups({"Courier:read"})
+     * @Groups({"Rapport:read"})
+     * @Groups({"Facture:read"})
+     * @Groups({"Facture:write"})
+     * @Groups({"CourierDepart:read"})
+     * @Groups({"CourierArriver:read"})
+     * @Groups({"FicheDeControle:read"})
      */
     private $prenom;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"User:read"})
+     * @Groups({"User:write"})
+     * @Groups({"Assistante:read"})
+     * @Groups({"Assistante:write"})
+     * @Groups({"Controleurs:read"})
+     * @Groups({"Controleurs:write"})
+     * @Groups({"Coordinateur:read"})
+     * @Groups({"Coordinateur:write"})
+     * @Groups({"Courier:read"})
+     * @Groups({"Rapport:read"})
+     * @Groups({"Facture:read"})
+     * @Groups({"Facture:write"})
+     * @Groups({"CourierDepart:read"})
+     * @Groups({"CourierArriver:read"})
+     * @Groups({"FicheDeControle:read"})
      */
     private $dateDeNaissance;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"User:read"})
+     * @Groups({"User:write"})
+     * @Groups({"Assistante:read"})
+     * @Groups({"Assistante:write"})
+     * @Groups({"Controleurs:read"})
+     * @Groups({"Controleurs:write"})
+     * @Groups({"Coordinateur:read"})
+     * @Groups({"Coordinateur:write"})
+     * @Groups({"Courier:read"})
+     * @Groups({"Rapport:read"})
+     * @Groups({"Facture:read"})
+     * @Groups({"Facture:write"})
+     * @Groups({"CourierDepart:read"})
+     * @Groups({"CourierArriver:read"})
+     * @Groups({"FicheDeControle:read"})
      */
     private $profil;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"User:read"})
+     * @Groups({"User:write"})
+     * @Groups({"Assistante:read"})
+     * @Groups({"Assistante:write"})
+     * @Groups({"Controleurs:read"})
+     * @Groups({"Controleurs:write"})
+     * @Groups({"Coordinateur:read"})
+     * @Groups({"Coordinateur:write"})
+     * @Groups({"Courier:read"})
+     * @Groups({"Rapport:read"})
+     * @Groups({"Facture:read"})
+     * @Groups({"Facture:write"})
+     * @Groups({"CourierDepart:read"})
+     * @Groups({"CourierArriver:read"})
+     * @Groups({"FicheDeControle:read"})
      */
     private $email;
 
@@ -130,7 +279,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function setPassword(string $password): self
     {
-        $this->password = $password;
+        $this->password = password_hash($password, PASSWORD_ARGON2I);
 
         return $this;
     }
