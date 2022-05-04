@@ -10,11 +10,11 @@ use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * @ApiResource(
  *  routePrefix="/coud",
- *  attributes={
- *         "security"="is_granted('ROLE_ADMIN')", 
- *         "security_message"="Vous n'avez pas access à cette Ressource",
- *     },
- *     collectionOperations={"POST","GET"},
+ *     collectionOperations={
+ *          "POST"={
+ *              "security"="is_granted('ROLE_ASSISTANTE', 'ROLE_COORDINATEUR', 'ROLE_SUPERADMIN')",
+*               "security_message"="Vous avez pas Accéss à ce ressource!!!",
+ *          },"GET"},
  *     itemOperations={"PUT", "GET"},
  *  normalizationContext={"groups"={"CourierArriver:read"}},
  *  denormalizationContext={"groups"={"CourierArriver:write"}},
@@ -29,6 +29,7 @@ class CourierArriver extends Courier
      * @Groups({"CourierArriver:read"})
      * @Groups({"CourierArriver:write"})
      * @Groups({"Facture:read"})
+     * @Groups({"Rapport:read"})
      */
     private $dateArriver;
 
@@ -37,6 +38,7 @@ class CourierArriver extends Courier
      * @Groups({"CourierArriver:read"})
      * @Groups({"CourierArriver:write"})
      * @Groups({"Facture:read"})
+     * @Groups({"Rapport:read"})
      */
     private $expediteur;
 
@@ -45,6 +47,7 @@ class CourierArriver extends Courier
      * @Groups({"CourierArriver:read"})
      * @Groups({"CourierArriver:write"})
      * @Groups({"Facture:read"})
+     * @Groups({"Rapport:read"})
      */
     private $dateCorrespondance;
 
@@ -53,6 +56,7 @@ class CourierArriver extends Courier
      * @Groups({"CourierArriver:read"})
      * @Groups({"CourierArriver:write"})
      * @Groups({"Facture:read"})
+     * @Groups({"Rapport:read"})
      */
     private $numeroCorrespondance;
 
@@ -61,6 +65,7 @@ class CourierArriver extends Courier
      * @Groups({"CourierArriver:read"})
      * @Groups({"CourierArriver:write"})
      * @Groups({"Facture:read"})
+     * @Groups({"Rapport:read"})
      */
     private $dateReponse;
 
@@ -69,6 +74,7 @@ class CourierArriver extends Courier
      * @Groups({"CourierArriver:read"})
      * @Groups({"CourierArriver:write"})
      * @Groups({"Facture:read"})
+     * @Groups({"Rapport:read"})
      */
     private $numeroReponse;
 

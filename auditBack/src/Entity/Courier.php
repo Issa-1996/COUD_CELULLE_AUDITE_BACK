@@ -2,24 +2,31 @@
 
 namespace App\Entity;
 
+use App\Entity\Rapport;
+use App\Entity\Assistante;
+use App\Entity\Controleurs;
+use App\Entity\Coordinateur;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\CourierRepository;
 use Doctrine\ORM\Mapping\InheritanceType;
+use ApiPlatform\Core\Annotation\ApiFilter;
 use Doctrine\ORM\Mapping\DiscriminatorMap;
 use Doctrine\Common\Collections\Collection;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiSubresource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
+ * @ApiFilter(SearchFilter::class, properties={"nature":"exact"})
  * @ApiResource(
  *  routePrefix="/coud",
- *  attributes={
- *         "security"="is_granted('ROLE_ADMIN')", 
- *         "security_message"="Vous n'avez pas access à cette Ressource",
- *     },
- *     collectionOperations={"POST","GET"},
+ *     collectionOperations={
+ *          "POST"={
+ *              "security"="is_granted('ROLE_ASSISTANTE', 'ROLE_COORDINATEUR', 'ROLE_SUPERADMIN')",
+*               "security_message"="Vous avez pas Accéss à ce ressource!!!",
+ *          },"GET"},
  *     itemOperations={"PUT", "GET"},
  *  normalizationContext={"groups"={"Courier:read"}},
  *  denormalizationContext={"groups"={"Courier:write"}},
@@ -38,6 +45,11 @@ class Courier
      * @Groups({"Rapport:read"})
      * @Groups({"CourierArriver:read"})
      * @Groups({"CourierDepart:read"}) 
+     * @Groups({"Rapport:read"})
+     * @Groups({"Rapport:write"})
+     * @Groups({"Facture:read"})
+     * @Groups({"Facture:write"})
+     * @Groups({"User:read"})
      */
     private $id;
 
@@ -49,6 +61,8 @@ class Courier
      * @Groups({"CourierArriver:write"})
      * @Groups({"CourierDepart:read"})
      * @Groups({"CourierDepart:write"})
+     * @Groups({"Rapport:read"})
+     * @Groups({"User:read"})
      */
     private $numeroCourier;
 
@@ -60,6 +74,8 @@ class Courier
      * @Groups({"CourierArriver:write"})
      * @Groups({"CourierDepart:read"})
      * @Groups({"CourierDepart:write"})
+     * @Groups({"Rapport:read"})
+     * @Groups({"User:read"})
      */
     private $object;
 
@@ -71,6 +87,7 @@ class Courier
      * @Groups({"CourierArriver:write"})
      * @Groups({"CourierDepart:read"})
      * @Groups({"CourierDepart:write"})
+     * @Groups({"Rapport:read"})
      */
     private $controleurs;
 
@@ -93,6 +110,7 @@ class Courier
      * @Groups({"CourierArriver:write"})
      * @Groups({"CourierDepart:read"})
      * @Groups({"CourierDepart:write"})
+     * @Groups({"Rapport:read"})
      */
     private $assistante;
 
@@ -104,8 +122,21 @@ class Courier
      * @Groups({"CourierArriver:write"})
      * @Groups({"CourierDepart:read"})
      * @Groups({"CourierDepart:write"})
+     * @Groups({"Rapport:read"})
      */
     private $coordinateur;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Groups({"Courier:read"})
+     * @Groups({"Courier:write"})
+     * @Groups({"CourierArriver:read"})
+     * @Groups({"CourierArriver:write"})
+     * @Groups({"CourierDepart:read"})
+     * @Groups({"CourierDepart:write"})
+     * @Groups({"Rapport:read"})
+     */
+    private $nature;
 
     public function __construct()
     {
@@ -197,6 +228,18 @@ class Courier
     public function setCoordinateur(?Coordinateur $coordinateur): self
     {
         $this->coordinateur = $coordinateur;
+
+        return $this;
+    }
+
+    public function getNature(): ?string
+    {
+        return $this->nature;
+    }
+
+    public function setNature(string $nature): self
+    {
+        $this->nature = $nature;
 
         return $this;
     }

@@ -14,7 +14,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @ApiResource(
  *  routePrefix="/coud",
  *  attributes={
- *         "security"="is_granted('ROLE_ADMIN')", 
+ *         "security"="is_granted('ROLE_COORDINATEUR', 'ROLE_SUPERADMIN')", 
  *         "security_message"="Vous n'avez pas access à cette Ressource",
  *     },
  *     collectionOperations={"POST","GET"},
@@ -36,7 +36,7 @@ class Coordinateur extends User
     private $FicheDeControle;
 
     /**
-     * @ORM\OneToMany(targetEntity=Rapport::class, mappedBy="coordinateur")
+     * @ORM\OneToMany(targetEntity=Rapport::class, mappedBy="coordinateur",cascade={"persist"})
      * @ApiSubresource()
      * @Groups({"Coordinateur:read"})
      * @Groups({"Coordinateur:write"})
