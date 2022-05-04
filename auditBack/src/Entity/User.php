@@ -5,20 +5,23 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping\InheritanceType;
+use ApiPlatform\Core\Annotation\ApiFilter;
 use Doctrine\ORM\Mapping\DiscriminatorMap;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Security\Core\User\UserInterface;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorMap({"user" = "User", "assistante" = "Assistante", "controleurs" = "Controleurs", "coordinateur" = "Coordinateur"})
+ * @ApiFilter(SearchFilter::class, properties={"profil":"exact"})
  * @ApiResource(
  *  routePrefix="/coud",
  *  attributes={
- *         "security"="is_granted('ROLE_ADMIN')", 
+ *         "security"="is_granted('ROLE_SUPERADMIN', 'ROLE_COORDINATEUR')", 
  *         "security_message"="Vous n'avez pas access à cette Ressource",
  *     },
  *     collectionOperations={"POST","GET"},
@@ -40,6 +43,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @Groups({"Courier:read"})
      * @Groups({"Courier:write"})
      * @Groups({"Rapport:read"})
+     * @Groups({"Rapport:write"})
      * @Groups({"Facture:read"})
      * @Groups({"CourierDepart:read"})
      * @Groups({"CourierDepart:write"})
@@ -63,7 +67,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @Groups({"Courier:read"})
      * @Groups({"Rapport:read"})
      * @Groups({"Facture:read"})
-     * @Groups({"Facture:write"})
      * @Groups({"CourierDepart:read"})
      * @Groups({"CourierArriver:read"})
      * @Groups({"FicheDeControle:read"})
@@ -83,7 +86,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @Groups({"Courier:read"})
      * @Groups({"Rapport:read"})
      * @Groups({"Facture:read"})
-     * @Groups({"Facture:write"})
      * @Groups({"CourierDepart:read"})
      * @Groups({"CourierArriver:read"})
      * @Groups({"FicheDeControle:read"})
@@ -113,7 +115,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @Groups({"Courier:read"})
      * @Groups({"Rapport:read"})
      * @Groups({"Facture:read"})
-     * @Groups({"Facture:write"})
      * @Groups({"CourierDepart:read"})
      * @Groups({"CourierArriver:read"})
      * @Groups({"FicheDeControle:read"})
@@ -133,7 +134,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @Groups({"Courier:read"})
      * @Groups({"Rapport:read"})
      * @Groups({"Facture:read"})
-     * @Groups({"Facture:write"})
      * @Groups({"CourierDepart:read"})
      * @Groups({"CourierArriver:read"})
      * @Groups({"FicheDeControle:read"})
@@ -153,7 +153,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @Groups({"Courier:read"})
      * @Groups({"Rapport:read"})
      * @Groups({"Facture:read"})
-     * @Groups({"Facture:write"})
      * @Groups({"CourierDepart:read"})
      * @Groups({"CourierArriver:read"})
      * @Groups({"FicheDeControle:read"})
@@ -173,7 +172,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @Groups({"Courier:read"})
      * @Groups({"Rapport:read"})
      * @Groups({"Facture:read"})
-     * @Groups({"Facture:write"})
      * @Groups({"CourierDepart:read"})
      * @Groups({"CourierArriver:read"})
      * @Groups({"FicheDeControle:read"})
@@ -193,7 +191,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @Groups({"Courier:read"})
      * @Groups({"Rapport:read"})
      * @Groups({"Facture:read"})
-     * @Groups({"Facture:write"})
      * @Groups({"CourierDepart:read"})
      * @Groups({"CourierArriver:read"})
      * @Groups({"FicheDeControle:read"})
@@ -213,7 +210,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @Groups({"Courier:read"})
      * @Groups({"Rapport:read"})
      * @Groups({"Facture:read"})
-     * @Groups({"Facture:write"})
      * @Groups({"CourierDepart:read"})
      * @Groups({"CourierArriver:read"})
      * @Groups({"FicheDeControle:read"})

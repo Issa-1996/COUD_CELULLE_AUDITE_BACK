@@ -11,7 +11,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @ApiResource(
  *  routePrefix="/coud",
  *  attributes={
- *         "security"="is_granted('ROLE_ADMIN')", 
+ *         "security"="is_granted('ROLE_CONTROLEUR', 'COORDINATEUR', 'ROLE_SUPERADMIN')", 
  *         "security_message"="Vous n'avez pas access à cette Ressource",
  *     },
  *     collectionOperations={"POST","GET"},

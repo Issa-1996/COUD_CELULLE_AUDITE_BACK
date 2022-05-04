@@ -13,12 +13,16 @@ use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * @ApiResource(
  *  routePrefix="/coud",
- *  attributes={
- *         "security"="is_granted('ROLE_ADMIN')", 
- *         "security_message"="Vous n'avez pas access à cette Ressource",
- *     },
- *     collectionOperations={"POST","GET"},
- *     itemOperations={"PUT", "GET"},
+ *     collectionOperations={
+ *          "POST"={
+ *              "security"="is_granted('ROLE_COORDINATEUR', 'ROLE_SUPERADMIN')", 
+ *              "security_message"="Vous n'avez pas access à cette Ressource",
+ *          },"GET"},
+ *     itemOperations={
+ *          "PUT"={
+ *              "security"="is_granted('ROLE_COORDINATEUR', 'ROLE_SUPERADMIN')", 
+ *              "security_message"="Vous n'avez pas access à cette Ressource",
+ *          }, "GET"},
  *  normalizationContext={"groups"={"Rapport:read"}},
  *  denormalizationContext={"groups"={"Rapport:write"}},
  * )
@@ -60,7 +64,7 @@ class Rapport
     private $courier;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Coordinateur::class, inversedBy="rapports")
+     * @ORM\ManyToOne(targetEntity=Coordinateur::class, inversedBy="rapports",cascade={"persist"})
      * @Groups({"Rapport:read"})
      * @Groups({"Rapport:write"})
      */
