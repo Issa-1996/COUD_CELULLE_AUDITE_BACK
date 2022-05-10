@@ -48,6 +48,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @Groups({"CourierArriver:write"})
      * @Groups({"FicheDeControle:read"})
      * @Groups({"FicheDeControle:write"})
+     * @Groups({"Profil:read"})
      */
     private $id;
 

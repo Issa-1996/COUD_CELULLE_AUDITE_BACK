@@ -17,25 +17,23 @@ class AppFixtures extends Fixture
     {
         // $product = new Product();
         // $manager->persist($product);
-        for($i=0; $i<5; $i++){
-            $role= ["ROLE_ADMIN"];
+            $role= ["ROLE_COORDONATEUR"];
             $user=new User();
             $profil=new Profil();
             $profil->setLibelle("COORDONATEUR");
-            $user->setUsername("admin".($i+1));
+            $user->setUsername("admin");
             $user->setRoles($role);
             $user->setProfil($profil);
-            $user->setPrenom("Issa".$i);
+            $user->setPrenom("Issa");
             $user->setNom("SARR");
-            $user->setMatricule($i);
+            $user->setMatricule("23456");
             $user->setDateDeNaissance("10/10/2020");
             $user->setEmail("issa.cheikhbi.gnilane@gmail.com");
     
             $password = $this->passwordEncoder->encodePassword($user,'password');
             $user->setPassword($password);
     
-            //$manager->persist($user);
-        }
-        //$manager->flush();
+            // $manager->persist($user);
+            // $manager->flush();
     }
 }

@@ -35,7 +35,6 @@ class Profil
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"User:read"})
-     * @Groups({"User:write"})
      * @Groups({"Profil:read"})
      * @Groups({"Profil:write"})
      */
