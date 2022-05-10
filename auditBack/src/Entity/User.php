@@ -17,7 +17,7 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorMap({"user" = "User", "assistante" = "Assistante", "controleurs" = "Controleurs", "coordinateur" = "Coordinateur"})
- * @ApiFilter(SearchFilter::class, properties={"profil":"exact", "username":"exact"})
+ * @ApiFilter(SearchFilter::class, properties={"username":"exact"})
  * @ApiResource(
  *  routePrefix="/coud",
  *     collectionOperations={"POST","GET"},
@@ -33,6 +33,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      * @Groups({"User:read"})
+     * @Groups({"User:write"})
      * @Groups({"Assistante:read"})
      * @Groups({"Controleurs:read"})
      * @Groups({"Coordinateur:read"})
@@ -191,26 +192,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @Groups({"CourierArriver:read"})
      * @Groups({"FicheDeControle:read"})
      */
-    private $profil;
+    private $email;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\ManyToOne(targetEntity=Profil::class, inversedBy="user",cascade={"persist"})
      * @Groups({"User:read"})
      * @Groups({"User:write"})
-     * @Groups({"Assistante:read"})
-     * @Groups({"Assistante:write"})
-     * @Groups({"Controleurs:read"})
-     * @Groups({"Controleurs:write"})
-     * @Groups({"Coordinateur:read"})
-     * @Groups({"Coordinateur:write"})
-     * @Groups({"Courier:read"})
-     * @Groups({"Rapport:read"})
-     * @Groups({"Facture:read"})
-     * @Groups({"CourierDepart:read"})
-     * @Groups({"CourierArriver:read"})
-     * @Groups({"FicheDeControle:read"})
      */
-    private $email;
+    private $profil;
 
     public function getId(): ?int
     {
@@ -344,18 +333,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getProfil(): ?string
-    {
-        return $this->profil;
-    }
-
-    public function setProfil(string $profil): self
-    {
-        $this->profil = $profil;
-
-        return $this;
-    }
-
     public function getEmail(): ?string
     {
         return $this->email;
@@ -364,6 +341,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setEmail(string $email): self
     {
         $this->email = $email;
+
+        return $this;
+    }
+
+    public function getProfil(): ?Profil
+    {
+        return $this->profil;
+    }
+
+    public function setProfil(?Profil $profil): self
+    {
+        $this->profil = $profil;
 
         return $this;
     }

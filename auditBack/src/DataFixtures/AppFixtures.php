@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Profil;
 use App\Entity\User;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -19,9 +20,11 @@ class AppFixtures extends Fixture
         for($i=0; $i<5; $i++){
             $role= ["ROLE_ADMIN"];
             $user=new User();
+            $profil=new Profil();
+            $profil->setLibelle("COORDONATEUR");
             $user->setUsername("admin".($i+1));
             $user->setRoles($role);
-            $user->setProfil("Controleurs".$i);
+            $user->setProfil($profil);
             $user->setPrenom("Issa".$i);
             $user->setNom("SARR");
             $user->setMatricule($i);
@@ -31,8 +34,8 @@ class AppFixtures extends Fixture
             $password = $this->passwordEncoder->encodePassword($user,'password');
             $user->setPassword($password);
     
-            $manager->persist($user);
+            //$manager->persist($user);
         }
-        $manager->flush();
+        //$manager->flush();
     }
 }
