@@ -17,13 +17,9 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorMap({"user" = "User", "assistante" = "Assistante", "controleurs" = "Controleurs", "coordinateur" = "Coordinateur"})
- * @ApiFilter(SearchFilter::class, properties={"profil":"exact"})
+ * @ApiFilter(SearchFilter::class, properties={"profil":"exact", "username":"exact"})
  * @ApiResource(
  *  routePrefix="/coud",
- *  attributes={
- *         "security"="is_granted('ROLE_SUPERADMIN', 'ROLE_COORDINATEUR')", 
- *         "security_message"="Vous n'avez pas access à cette Ressource",
- *     },
  *     collectionOperations={"POST","GET"},
  *     itemOperations={"PUT", "GET"},
  *  normalizationContext={"groups"={"User:read"}},
@@ -275,7 +271,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function setPassword(string $password): self
     {
-        $this->password = password_hash($password, PASSWORD_ARGON2I);
+        $this->password = password_hash($password, PASSWORD_ARGON2ID);
 
         return $this;
     }
