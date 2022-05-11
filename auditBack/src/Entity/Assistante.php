@@ -20,6 +20,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * )
  * @ORM\Entity(repositoryClass=AssistanteRepository::class)
  */
+
 class Assistante extends User
 {
     /**

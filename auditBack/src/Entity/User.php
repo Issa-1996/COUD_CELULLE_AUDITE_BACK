@@ -11,7 +11,6 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Security\Core\User\UserInterface;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
-use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -26,7 +25,7 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
  *  denormalizationContext={"groups"={"User:write"}},
  * )
  */
-class User implements UserInterface, PasswordAuthenticatedUserInterface
+class User implements UserInterface
 {
     /**
      * @ORM\Id
@@ -252,16 +251,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @see PasswordAuthenticatedUserInterface
+     * @see UserInterface
      */
     public function getPassword(): string
     {
         return $this->password;
     }
-
+    
     public function setPassword(string $password): self
     {
-        $this->password = password_hash($password, PASSWORD_ARGON2ID);
+        $this->password = $password;
 
         return $this;
     }
