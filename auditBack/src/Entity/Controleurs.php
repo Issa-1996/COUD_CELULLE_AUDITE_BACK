@@ -34,7 +34,6 @@ class Controleurs extends User
      * @ORM\ManyToMany(targetEntity=Courier::class, mappedBy="controleurs")
      * @ApiSubresource()
      * @Groups({"Controleurs:read"})
-     * @Groups({"Controleurs:write"})
      */
     private $couriers;
 
