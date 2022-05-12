@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20220430163602 extends AbstractMigration
+final class Version20220510090244 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -23,7 +23,7 @@ final class Version20220430163602 extends AbstractMigration
         $this->addSql('CREATE TABLE assistante (id INT NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE controleurs (id INT NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE coordinateur (id INT NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE courier (id INT AUTO_INCREMENT NOT NULL, rapport_id INT DEFAULT NULL, assistante_id INT DEFAULT NULL, coordinateur_id INT DEFAULT NULL, numero_courier VARCHAR(255) NOT NULL, object VARCHAR(255) NOT NULL, dtype VARCHAR(255) NOT NULL, INDEX IDX_CF134C7C1DFBCC46 (rapport_id), INDEX IDX_CF134C7CA2561908 (assistante_id), INDEX IDX_CF134C7CD32E46EA (coordinateur_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE courier (id INT AUTO_INCREMENT NOT NULL, rapport_id INT DEFAULT NULL, assistante_id INT DEFAULT NULL, coordinateur_id INT DEFAULT NULL, numero_courier VARCHAR(255) NOT NULL, object VARCHAR(255) NOT NULL, nature VARCHAR(255) NOT NULL, dtype VARCHAR(255) NOT NULL, INDEX IDX_CF134C7C1DFBCC46 (rapport_id), INDEX IDX_CF134C7CA2561908 (assistante_id), INDEX IDX_CF134C7CD32E46EA (coordinateur_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE courier_controleurs (courier_id INT NOT NULL, controleurs_id INT NOT NULL, INDEX IDX_62FEA81CE3D8151C (courier_id), INDEX IDX_62FEA81C90C7B3D2 (controleurs_id), PRIMARY KEY(courier_id, controleurs_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE courier_arriver (id INT NOT NULL, date_arriver VARCHAR(255) DEFAULT NULL, expediteur VARCHAR(255) DEFAULT NULL, date_correspondance VARCHAR(255) DEFAULT NULL, numero_correspondance VARCHAR(255) DEFAULT NULL, date_reponse VARCHAR(255) DEFAULT NULL, numero_reponse VARCHAR(255) DEFAULT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE courier_depart (id INT NOT NULL, date_depart VARCHAR(255) DEFAULT NULL, destination VARCHAR(255) DEFAULT NULL, nombre_piece VARCHAR(255) NOT NULL, numero_archive VARCHAR(255) DEFAULT NULL, observation VARCHAR(255) DEFAULT NULL, numero_ordre VARCHAR(255) DEFAULT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
