@@ -13,16 +13,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * @ApiResource(
  *  routePrefix="/coud",
- *     collectionOperations={
- *          "POST"={
- *              "security"="is_granted('ROLE_COORDINATEUR', 'ROLE_SUPERADMIN')", 
- *              "security_message"="Vous n'avez pas access à cette Ressource",
- *          },"GET"},
- *     itemOperations={
- *          "PUT"={
- *              "security"="is_granted('ROLE_COORDINATEUR', 'ROLE_SUPERADMIN')", 
- *              "security_message"="Vous n'avez pas access à cette Ressource",
- *          }, "GET"},
+ *     collectionOperations={"POST","GET"},
+ *     itemOperations={"PUT", "GET"},
  *  normalizationContext={"groups"={"Rapport:read"}},
  *  denormalizationContext={"groups"={"Rapport:write"}},
  * )

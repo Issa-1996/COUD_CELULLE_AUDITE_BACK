@@ -10,10 +10,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * @ApiResource(
  *  routePrefix="/coud",
- *  attributes={
- *         "security"="is_granted('ROLE_CONTROLEUR', 'COORDINATEUR', 'ROLE_SUPERADMIN')", 
- *         "security_message"="Vous n'avez pas access à cette Ressource",
- *     },
  *     collectionOperations={"POST","GET"},
  *     itemOperations={"PUT", "GET"},
  *  normalizationContext={"groups"={"FicheDeControle:read"}},
@@ -72,6 +68,13 @@ class FicheDeControle
      * @Groups({"FicheDeControle:write"})
      */
     private $coordinateur;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Groups({"FicheDeControle:read"})
+     * @Groups({"FicheDeControle:write"})
+     */
+    private $objet;
 
     public function getId(): ?int
     {
@@ -146,6 +149,18 @@ class FicheDeControle
     public function setCoordinateur(?Coordinateur $coordinateur): self
     {
         $this->coordinateur = $coordinateur;
+
+        return $this;
+    }
+
+    public function getObjet(): ?string
+    {
+        return $this->objet;
+    }
+
+    public function setObjet(string $objet): self
+    {
+        $this->objet = $objet;
 
         return $this;
     }

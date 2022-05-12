@@ -22,11 +22,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  * @ApiFilter(SearchFilter::class, properties={"nature":"exact"})
  * @ApiResource(
  *  routePrefix="/coud",
- *     collectionOperations={
- *          "POST"={
- *              "security"="is_granted('ROLE_ASSISTANTE', 'ROLE_COORDINATEUR', 'ROLE_SUPERADMIN')",
-*               "security_message"="Vous avez pas Accéss à ce ressource!!!",
- *          },"GET"},
+ *     collectionOperations={"POST","GET"},
  *     itemOperations={"PUT", "GET"},
  *  normalizationContext={"groups"={"Courier:read"}},
  *  denormalizationContext={"groups"={"Courier:write"}},
@@ -115,7 +111,7 @@ class Courier
     private $assistante;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Coordinateur::class, inversedBy="courier")
+     * @ORM\ManyToOne(targetEntity=Coordinateur::class, inversedBy="courier",cascade={"persist"})
      * @Groups({"Courier:read"})
      * @Groups({"Courier:write"})
      * @Groups({"CourierArriver:read"})
@@ -125,18 +121,6 @@ class Courier
      * @Groups({"Rapport:read"})
      */
     private $coordinateur;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @Groups({"Courier:read"})
-     * @Groups({"Courier:write"})
-     * @Groups({"CourierArriver:read"})
-     * @Groups({"CourierArriver:write"})
-     * @Groups({"CourierDepart:read"})
-     * @Groups({"CourierDepart:write"})
-     * @Groups({"Rapport:read"})
-     */
-    private $nature;
 
     public function __construct()
     {
@@ -228,18 +212,6 @@ class Courier
     public function setCoordinateur(?Coordinateur $coordinateur): self
     {
         $this->coordinateur = $coordinateur;
-
-        return $this;
-    }
-
-    public function getNature(): ?string
-    {
-        return $this->nature;
-    }
-
-    public function setNature(string $nature): self
-    {
-        $this->nature = $nature;
 
         return $this;
     }
