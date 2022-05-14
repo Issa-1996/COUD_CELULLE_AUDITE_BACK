@@ -31,11 +31,11 @@ class Controleurs extends User
     private $FicheDeControle;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Courier::class, mappedBy="controleurs")
-     * @ApiSubresource()
+     * @ORM\OneToMany(targetEntity=Courier::class, mappedBy="controleur")
      * @Groups({"Controleurs:read"})
      */
     private $couriers;
+
 
     public function __construct()
     {
@@ -85,7 +85,7 @@ class Controleurs extends User
     {
         if (!$this->couriers->contains($courier)) {
             $this->couriers[] = $courier;
-            $courier->addControleur($this);
+            $courier->setControleur($this);
         }
 
         return $this;
@@ -94,7 +94,10 @@ class Controleurs extends User
     public function removeCourier(Courier $courier): self
     {
         if ($this->couriers->removeElement($courier)) {
-            $courier->removeControleur($this);
+            // set the owning side to null (unless already changed)
+            if ($courier->getControleur() === $this) {
+                $courier->setControleur(null);
+            }
         }
 
         return $this;
