@@ -2,7 +2,7 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\User;
+use App\Entity\Coordinateur;
 use App\Entity\Profil;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -29,8 +29,16 @@ class AppFixtures extends Fixture
             $user->setEmail("issa.cheikhbi.gnilane@gmail.com");
             $password = $this->passwordEncoder->encodePassword($user,'password');
             $user->setPassword($password);
+
+            $profilCont=new Profil();
+            $profilCont->setLibelle("CONTROLEURS");
+
+            $profilAssist=new Profil();
+            $profilAssist->setLibelle("ASSISTANTE");
     
             $manager->persist($user);
+            $manager->persist($profilCont);
+            $manager->persist($profilAssist);
             $manager->flush();
     }
 }

@@ -4,7 +4,6 @@ namespace App\Entity;
 
 use App\Entity\Rapport;
 use App\Entity\Assistante;
-use App\Entity\Controleurs;
 use App\Entity\Coordinateur;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\CourierRepository;
@@ -76,18 +75,6 @@ class Courier
     private $object;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Controleurs::class, inversedBy="couriers")
-     * @Groups({"Courier:read"})
-     * @Groups({"Courier:write"})
-     * @Groups({"CourierArriver:read"})
-     * @Groups({"CourierArriver:write"})
-     * @Groups({"CourierDepart:read"})
-     * @Groups({"CourierDepart:write"})
-     * @Groups({"Rapport:read"})
-     */
-    private $controleurs;
-
-    /**
      * @ORM\ManyToOne(targetEntity=Rapport::class, inversedBy="courier")
      * @Groups({"Courier:read"})
      * @Groups({"Courier:write"})
@@ -122,10 +109,17 @@ class Courier
      */
     private $coordinateur;
 
-    public function __construct()
-    {
-        $this->controleurs = new ArrayCollection();
-    }
+    /**
+     * @ORM\ManyToOne(targetEntity=Controleurs::class, inversedBy="couriers")
+     * @Groups({"Courier:read"})
+     * @Groups({"Courier:write"})
+     * @Groups({"CourierArriver:read"})
+     * @Groups({"CourierArriver:write"})
+     * @Groups({"CourierDepart:read"})
+     * @Groups({"CourierDepart:write"})
+     * @Groups({"Rapport:read"})
+     */
+    private $controleur;
 
     public function getId(): ?int
     {
@@ -152,30 +146,6 @@ class Courier
     public function setObject(string $object): self
     {
         $this->object = $object;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Controleurs>
-     */
-    public function getControleurs(): Collection
-    {
-        return $this->controleurs;
-    }
-
-    public function addControleur(Controleurs $controleur): self
-    {
-        if (!$this->controleurs->contains($controleur)) {
-            $this->controleurs[] = $controleur;
-        }
-
-        return $this;
-    }
-
-    public function removeControleur(Controleurs $controleur): self
-    {
-        $this->controleurs->removeElement($controleur);
 
         return $this;
     }
@@ -212,6 +182,18 @@ class Courier
     public function setCoordinateur(?Coordinateur $coordinateur): self
     {
         $this->coordinateur = $coordinateur;
+
+        return $this;
+    }
+
+    public function getControleur(): ?Controleurs
+    {
+        return $this->controleur;
+    }
+
+    public function setControleur(?Controleurs $controleur): self
+    {
+        $this->controleur = $controleur;
 
         return $this;
     }
