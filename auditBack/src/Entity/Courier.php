@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use App\Entity\Rapport;
 use App\Entity\Assistante;
 use App\Entity\Coordinateur;
 use Doctrine\ORM\Mapping as ORM;
@@ -37,14 +36,12 @@ class Courier
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      * @Groups({"Courier:read"})
-     * @Groups({"Rapport:read"})
      * @Groups({"CourierArriver:read"})
      * @Groups({"CourierDepart:read"}) 
-     * @Groups({"Rapport:read"})
-     * @Groups({"Rapport:write"})
-     * @Groups({"Facture:read"})
-     * @Groups({"Facture:write"})
      * @Groups({"User:read"})
+     * @Groups({"Controleurs:read"})
+     * @Groups({"FicheDeControle:read"})
+     * @Groups({"FicheDeControle:write"})
      */
     private $id;
 
@@ -56,8 +53,8 @@ class Courier
      * @Groups({"CourierArriver:write"})
      * @Groups({"CourierDepart:read"})
      * @Groups({"CourierDepart:write"})
-     * @Groups({"Rapport:read"})
      * @Groups({"User:read"})
+     * @Groups({"Controleurs:read"})
      */
     private $numeroCourier;
 
@@ -69,21 +66,10 @@ class Courier
      * @Groups({"CourierArriver:write"})
      * @Groups({"CourierDepart:read"})
      * @Groups({"CourierDepart:write"})
-     * @Groups({"Rapport:read"})
      * @Groups({"User:read"})
+     * @Groups({"Controleurs:read"})
      */
     private $object;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Rapport::class, inversedBy="courier")
-     * @Groups({"Courier:read"})
-     * @Groups({"Courier:write"})
-     * @Groups({"CourierArriver:read"})
-     * @Groups({"CourierArriver:write"})
-     * @Groups({"CourierDepart:read"})
-     * @Groups({"CourierDepart:write"})
-     */
-    private $rapport;
 
     /**
      * @ORM\ManyToOne(targetEntity=Assistante::class, inversedBy="courier")
@@ -93,7 +79,6 @@ class Courier
      * @Groups({"CourierArriver:write"})
      * @Groups({"CourierDepart:read"})
      * @Groups({"CourierDepart:write"})
-     * @Groups({"Rapport:read"})
      */
     private $assistante;
 
@@ -105,7 +90,6 @@ class Courier
      * @Groups({"CourierArriver:write"})
      * @Groups({"CourierDepart:read"})
      * @Groups({"CourierDepart:write"})
-     * @Groups({"Rapport:read"})
      */
     private $coordinateur;
 
@@ -117,9 +101,69 @@ class Courier
      * @Groups({"CourierArriver:write"})
      * @Groups({"CourierDepart:read"})
      * @Groups({"CourierDepart:write"})
-     * @Groups({"Rapport:read"})
      */
     private $controleur;
+
+
+    /**
+     * @ORM\OneToOne(targetEntity=FicheDeControle::class, inversedBy="courier", cascade={"persist", "remove"})
+     * @Groups({"Courier:read"})
+     * @Groups({"CourierArriver:read"})
+     * @Groups({"CourierDepart:read"})
+     */
+    private $ficheDeControle;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"Courier:read"})
+     * @Groups({"Courier:write"})
+     * @Groups({"CourierArriver:read"})
+     * @Groups({"CourierArriver:write"})
+     * @Groups({"CourierDepart:read"})
+     * @Groups({"CourierDepart:write"})
+     * @Groups({"User:read"})
+     * @Groups({"Controleurs:read"})
+     */
+    private $Date;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Groups({"Courier:read"})
+     * @Groups({"Courier:write"})
+     * @Groups({"CourierArriver:read"})
+     * @Groups({"CourierArriver:write"})
+     * @Groups({"CourierDepart:read"})
+     * @Groups({"CourierDepart:write"})
+     * @Groups({"User:read"})
+     * @Groups({"Controleurs:read"})
+     */
+    private $NumeroFacture;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"Courier:read"})
+     * @Groups({"Courier:write"})
+     * @Groups({"CourierArriver:read"})
+     * @Groups({"CourierArriver:write"})
+     * @Groups({"CourierDepart:read"})
+     * @Groups({"CourierDepart:write"})
+     * @Groups({"User:read"})
+     * @Groups({"Controleurs:read"})
+     */
+    private $montant;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"Courier:read"})
+     * @Groups({"Courier:write"})
+     * @Groups({"CourierArriver:read"})
+     * @Groups({"CourierArriver:write"})
+     * @Groups({"CourierDepart:read"})
+     * @Groups({"CourierDepart:write"})
+     * @Groups({"User:read"})
+     * @Groups({"Controleurs:read"})
+     */
+    private $beneficiaire;
 
     public function getId(): ?int
     {
@@ -146,18 +190,6 @@ class Courier
     public function setObject(string $object): self
     {
         $this->object = $object;
-
-        return $this;
-    }
-
-    public function getRapport(): ?Rapport
-    {
-        return $this->rapport;
-    }
-
-    public function setRapport(?Rapport $rapport): self
-    {
-        $this->rapport = $rapport;
 
         return $this;
     }
@@ -194,6 +226,67 @@ class Courier
     public function setControleur(?Controleurs $controleur): self
     {
         $this->controleur = $controleur;
+
+        return $this;
+    }
+
+
+    public function getFicheDeControle(): ?FicheDeControle
+    {
+        return $this->ficheDeControle;
+    }
+
+    public function setFicheDeControle(?FicheDeControle $ficheDeControle): self
+    {
+        $this->ficheDeControle = $ficheDeControle;
+
+        return $this;
+    }
+
+    public function getDate(): ?string
+    {
+        return $this->Date;
+    }
+
+    public function setDate(?string $Date): self
+    {
+        $this->Date = $Date;
+
+        return $this;
+    }
+
+    public function getNumeroFacture(): ?string
+    {
+        return $this->NumeroFacture;
+    }
+
+    public function setNumeroFacture(string $NumeroFacture): self
+    {
+        $this->NumeroFacture = $NumeroFacture;
+
+        return $this;
+    }
+
+    public function getMontant(): ?string
+    {
+        return $this->montant;
+    }
+
+    public function setMontant(?string $montant): self
+    {
+        $this->montant = $montant;
+
+        return $this;
+    }
+
+    public function getBeneficiaire(): ?string
+    {
+        return $this->beneficiaire;
+    }
+
+    public function setBeneficiaire(?string $beneficiaire): self
+    {
+        $this->beneficiaire = $beneficiaire;
 
         return $this;
     }

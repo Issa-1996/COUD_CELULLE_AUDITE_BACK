@@ -24,17 +24,8 @@ class CourierArriver extends Courier
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"CourierArriver:read"})
      * @Groups({"CourierArriver:write"})
-     * @Groups({"Facture:read"})
-     * @Groups({"Rapport:read"})
-     */
-    private $dateArriver;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"CourierArriver:read"})
-     * @Groups({"CourierArriver:write"})
-     * @Groups({"Facture:read"})
-     * @Groups({"Rapport:read"})
+     * @Groups({"Controleurs:read"})
+     * @Groups({"User:read"})
      */
     private $expediteur;
 
@@ -42,8 +33,8 @@ class CourierArriver extends Courier
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"CourierArriver:read"})
      * @Groups({"CourierArriver:write"})
-     * @Groups({"Facture:read"})
-     * @Groups({"Rapport:read"})
+     * @Groups({"Controleurs:read"})
+     * @Groups({"User:read"})
      */
     private $dateCorrespondance;
 
@@ -51,8 +42,8 @@ class CourierArriver extends Courier
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"CourierArriver:read"})
      * @Groups({"CourierArriver:write"})
-     * @Groups({"Facture:read"})
-     * @Groups({"Rapport:read"})
+     * @Groups({"Controleurs:read"})
+     * @Groups({"User:read"})
      */
     private $numeroCorrespondance;
 
@@ -60,8 +51,8 @@ class CourierArriver extends Courier
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"CourierArriver:read"})
      * @Groups({"CourierArriver:write"})
-     * @Groups({"Facture:read"})
-     * @Groups({"Rapport:read"})
+     * @Groups({"Controleurs:read"})
+     * @Groups({"User:read"})
      */
     private $dateReponse;
 
@@ -69,23 +60,11 @@ class CourierArriver extends Courier
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"CourierArriver:read"})
      * @Groups({"CourierArriver:write"})
-     * @Groups({"Facture:read"})
-     * @Groups({"Rapport:read"})
+     * @Groups({"Controleurs:read"})
+     * @Groups({"User:read"})
      */
     private $numeroReponse;
 
-
-    public function getDateArriver(): ?string
-    {
-        return $this->dateArriver;
-    }
-
-    public function setDateArriver(?string $dateArriver): self
-    {
-        $this->dateArriver = $dateArriver;
-
-        return $this;
-    }
 
     public function getExpediteur(): ?string
     {

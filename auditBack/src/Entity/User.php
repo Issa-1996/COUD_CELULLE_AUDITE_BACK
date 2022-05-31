@@ -11,11 +11,13 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Security\Core\User\UserInterface;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorMap({"user" = "User", "assistante" = "Assistante", "controleurs" = "Controleurs", "coordinateur" = "Coordinateur"})
+ * @UniqueEntity("username")
  * @ApiFilter(SearchFilter::class, properties={"username":"exact"})
  * @ApiResource(
  *  routePrefix="/coud",
@@ -38,9 +40,6 @@ class User implements UserInterface
      * @Groups({"Coordinateur:read"})
      * @Groups({"Courier:read"})
      * @Groups({"Courier:write"})
-     * @Groups({"Rapport:read"})
-     * @Groups({"Rapport:write"})
-     * @Groups({"Facture:read"})
      * @Groups({"CourierDepart:read"})
      * @Groups({"CourierDepart:write"})
      * @Groups({"CourierArriver:read"})
@@ -52,7 +51,7 @@ class User implements UserInterface
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=180, unique=true)
+     * @ORM\Column(type="string", length=180, unique=true, unique=true)
      * @Groups({"User:read"})
      * @Groups({"User:write"})
      * @Groups({"Assistante:read"})
@@ -62,8 +61,6 @@ class User implements UserInterface
      * @Groups({"Coordinateur:read"})
      * @Groups({"Coordinateur:write"})
      * @Groups({"Courier:read"})
-     * @Groups({"Rapport:read"})
-     * @Groups({"Facture:read"})
      * @Groups({"CourierDepart:read"})
      * @Groups({"CourierArriver:read"})
      * @Groups({"FicheDeControle:read"})
@@ -81,8 +78,6 @@ class User implements UserInterface
      * @Groups({"Coordinateur:read"})
      * @Groups({"Coordinateur:write"})
      * @Groups({"Courier:read"})
-     * @Groups({"Rapport:read"})
-     * @Groups({"Facture:read"})
      * @Groups({"CourierDepart:read"})
      * @Groups({"CourierArriver:read"})
      * @Groups({"FicheDeControle:read"})
@@ -110,8 +105,6 @@ class User implements UserInterface
      * @Groups({"Coordinateur:read"})
      * @Groups({"Coordinateur:write"})
      * @Groups({"Courier:read"})
-     * @Groups({"Rapport:read"})
-     * @Groups({"Facture:read"})
      * @Groups({"CourierDepart:read"})
      * @Groups({"CourierArriver:read"})
      * @Groups({"FicheDeControle:read"})
@@ -129,8 +122,6 @@ class User implements UserInterface
      * @Groups({"Coordinateur:read"})
      * @Groups({"Coordinateur:write"})
      * @Groups({"Courier:read"})
-     * @Groups({"Rapport:read"})
-     * @Groups({"Facture:read"})
      * @Groups({"CourierDepart:read"})
      * @Groups({"CourierArriver:read"})
      * @Groups({"FicheDeControle:read"})
@@ -148,8 +139,6 @@ class User implements UserInterface
      * @Groups({"Coordinateur:read"})
      * @Groups({"Coordinateur:write"})
      * @Groups({"Courier:read"})
-     * @Groups({"Rapport:read"})
-     * @Groups({"Facture:read"})
      * @Groups({"CourierDepart:read"})
      * @Groups({"CourierArriver:read"})
      * @Groups({"FicheDeControle:read"})
@@ -167,8 +156,6 @@ class User implements UserInterface
      * @Groups({"Coordinateur:read"})
      * @Groups({"Coordinateur:write"})
      * @Groups({"Courier:read"})
-     * @Groups({"Rapport:read"})
-     * @Groups({"Facture:read"})
      * @Groups({"CourierDepart:read"})
      * @Groups({"CourierArriver:read"})
      * @Groups({"FicheDeControle:read"})
@@ -186,8 +173,6 @@ class User implements UserInterface
      * @Groups({"Coordinateur:read"})
      * @Groups({"Coordinateur:write"})
      * @Groups({"Courier:read"})
-     * @Groups({"Rapport:read"})
-     * @Groups({"Facture:read"})
      * @Groups({"CourierDepart:read"})
      * @Groups({"CourierArriver:read"})
      * @Groups({"FicheDeControle:read"})
