@@ -29,11 +29,10 @@ class UserController extends AbstractController
      */
     public function  currentUser(SerializerInterface $serializer,TokenStorageInterface $tokenStorage){
         //dd("ok");
-        $userConnect=$this->getUser();
-        //dd($userConnect);
-        $user =$serializer->serialize($userConnect,"json");
-        return new JsonResponse($user,Response::HTTP_OK,[],true);
-       
+        // $userConnect=$this->getUser();
+        // dd($userConnect);
+        // $user =$serializer->serialize($userConnect, 'json');
+        // return new JsonResponse($user,Response::HTTP_OK,[],true);
     }
     /**
      * @Route(
@@ -53,8 +52,7 @@ class UserController extends AbstractController
             $user->setProfil($profilObjet);
             $password = $user->getPassword();
             $user->setPassword($this->encoder->encodePassword($user,$password));
-            //dd($user);
-
+            
             $this->manager->persist($user);
             $this->manager->flush();
             return new JsonResponse("success", Response::HTTP_OK);

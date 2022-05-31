@@ -23,7 +23,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 class Controleurs extends User
 {
     /**
-     * @ORM\OneToMany(targetEntity=FicheDeControle::class, mappedBy="controleurs")
+     * @ORM\OneToMany(targetEntity=FicheDeControle::class, mappedBy="controleurs",cascade={"persist"})
      * @ApiSubresource()
      * @Groups({"Controleurs:read"})
      * @Groups({"Controleurs:write"})
@@ -31,8 +31,9 @@ class Controleurs extends User
     private $FicheDeControle;
 
     /**
-     * @ORM\OneToMany(targetEntity=Courier::class, mappedBy="controleur")
+     * @ORM\OneToMany(targetEntity=Courier::class, mappedBy="controleur",cascade={"persist"})
      * @Groups({"Controleurs:read"})
+     * @Groups({"User:read"})
      */
     private $couriers;
 

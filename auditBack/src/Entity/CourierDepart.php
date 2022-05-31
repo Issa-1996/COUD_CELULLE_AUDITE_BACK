@@ -24,17 +24,6 @@ class CourierDepart extends Courier
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"CourierDepart:read"})
      * @Groups({"CourierDepart:write"})
-     * @Groups({"Facture:read"})
-     * @Groups({"Rapport:read"})
-     */
-    private $dateDepart;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"CourierDepart:read"})
-     * @Groups({"CourierDepart:write"})
-     * @Groups({"Facture:read"})
-     * @Groups({"Rapport:read"})
      */
     private $destination;
 
@@ -42,8 +31,6 @@ class CourierDepart extends Courier
      * @ORM\Column(type="string", length=255)
      * @Groups({"CourierDepart:read"})
      * @Groups({"CourierDepart:write"})
-     * @Groups({"Facture:read"})
-     * @Groups({"Rapport:read"})
      */
     private $nombrePiece;
 
@@ -51,8 +38,6 @@ class CourierDepart extends Courier
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"CourierDepart:read"})
      * @Groups({"CourierDepart:write"})
-     * @Groups({"Facture:read"})
-     * @Groups({"Rapport:read"})
      */
     private $numeroArchive;
 
@@ -60,8 +45,6 @@ class CourierDepart extends Courier
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"CourierDepart:read"})
      * @Groups({"CourierDepart:write"})
-     * @Groups({"Facture:read"})
-     * @Groups({"Rapport:read"})
      */
     private $observation;
 
@@ -69,23 +52,9 @@ class CourierDepart extends Courier
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"CourierDepart:read"})
      * @Groups({"CourierDepart:write"})
-     * @Groups({"Facture:read"})
-     * @Groups({"Rapport:read"})
      */
     private $numeroOrdre;
 
-
-    public function getDateDepart(): ?string
-    {
-        return $this->dateDepart;
-    }
-
-    public function setDateDepart(?string $dateDepart): self
-    {
-        $this->dateDepart = $dateDepart;
-
-        return $this;
-    }
 
     public function getDestination(): ?string
     {
