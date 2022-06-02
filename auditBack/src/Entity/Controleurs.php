@@ -27,6 +27,7 @@ class Controleurs extends User
      * @ApiSubresource()
      * @Groups({"Controleurs:read"})
      * @Groups({"Controleurs:write"})
+     * @Groups({"User:read"})
      */
     private $FicheDeControle;
 

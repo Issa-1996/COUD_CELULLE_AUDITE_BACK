@@ -28,6 +28,8 @@ class FicheDeControle
      * @Groups({"Courier:read"})
      * @Groups({"CourierArriver:read"})
      * @Groups({"CourierDepart:read"})
+     * @Groups({"Controleurs:read"})
+     * @Groups({"User:read"})
      */
     private $id;
 
@@ -38,6 +40,8 @@ class FicheDeControle
      * @Groups({"Courier:read"})
      * @Groups({"CourierArriver:read"})
      * @Groups({"CourierDepart:read"})
+     * @Groups({"Controleurs:read"})
+     * @Groups({"User:read"})
      */
     private $nomControleur;
 
@@ -48,6 +52,8 @@ class FicheDeControle
      * @Groups({"Courier:read"})
      * @Groups({"CourierArriver:read"})
      * @Groups({"CourierDepart:read"})
+     * @Groups({"Controleurs:read"})
+     * @Groups({"User:read"})
      */
     private $avisControleur;
 
@@ -58,6 +64,8 @@ class FicheDeControle
      * @Groups({"Courier:read"})
      * @Groups({"CourierArriver:read"})
      * @Groups({"CourierDepart:read"})
+     * @Groups({"Controleurs:read"})
+     * @Groups({"User:read"})
      */
     private $motivation;
 
@@ -68,6 +76,8 @@ class FicheDeControle
      * @Groups({"Courier:read"})
      * @Groups({"CourierArriver:read"})
      * @Groups({"CourierDepart:read"})
+     * @Groups({"Controleurs:read"})
+     * @Groups({"User:read"})
      */
     private $recommandations;
 
@@ -92,6 +102,8 @@ class FicheDeControle
      * @Groups({"Courier:read"})
      * @Groups({"CourierArriver:read"})
      * @Groups({"CourierDepart:read"})
+     * @Groups({"Controleurs:read"})
+     * @Groups({"User:read"})
      */
     private $objet;
 
