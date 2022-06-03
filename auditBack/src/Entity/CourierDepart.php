@@ -11,7 +11,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @ApiResource(
  *  routePrefix="/coud",
  *     collectionOperations={"POST","GET"},
- *     itemOperations={"PUT", "GET"},
+ *     itemOperations={"PUT","GET"},
  *  normalizationContext={"groups"={"CourierDepart:read"}},
  *  denormalizationContext={"groups"={"CourierDepart:write"}},
  * )
