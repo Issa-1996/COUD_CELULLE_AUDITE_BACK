@@ -17,7 +17,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
- * @ApiFilter(SearchFilter::class, properties={"nature":"exact"})
  * @ApiResource(
  *  routePrefix="/coud",
  *     collectionOperations={"POST","GET"},
@@ -25,6 +24,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  *  normalizationContext={"groups"={"Courier:read"}},
  *  denormalizationContext={"groups"={"Courier:write"}},
  * )
+ * @ApiFilter(SearchFilter::class, properties={"object":"exact","Date":"exact"})
  * @ORM\Entity(repositoryClass=CourierRepository::class)
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorMap({"courier" = "Courier","courierDepart" = "CourierDepart", "courierArriver" = "CourierArriver"})
