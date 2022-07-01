@@ -13,17 +13,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * @ApiResource(
  *  routePrefix="/coud",
- *  attributes={
- *         "security"="is_granted('ROLE_COORDINATEUR', 'ROLE_SUPERADMIN')", 
- *         "security_message"="Vous n'avez pas access à cette Ressource",
-*     },
 *     collectionOperations={"POST","GET"},
-*     itemOperations={
-*           "PUT"={
-*               "security"="is_granted('ROLE_CONTROLEUR')",
-*               "security_message"="Vous avez pas Accéss à ce ressource!!!",
-*           }, 
-*           "GET"},
+*     itemOperations={"PUT","GET"},
 *   normalizationContext={"groups"={"Controleurs:read"}},
  *  denormalizationContext={"groups"={"Controleurs:write"}},
  * )
@@ -32,25 +23,27 @@ use Symfony\Component\Serializer\Annotation\Groups;
 class Controleurs extends User
 {
     /**
-     * @ORM\OneToMany(targetEntity=FicheDeControle::class, mappedBy="controleurs")
+     * @ORM\OneToMany(targetEntity=FicheDeControle::class, mappedBy="controleurs",cascade={"persist"})
      * @ApiSubresource()
      * @Groups({"Controleurs:read"})
      * @Groups({"Controleurs:write"})
+     * @Groups({"User:read"})
      */
     private $FicheDeControle;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Courier::class, mappedBy="controleurs")
-     * @ApiSubresource()
+     * @ORM\OneToMany(targetEntity=CourierArriver::class, mappedBy="controleurs")
      * @Groups({"Controleurs:read"})
      * @Groups({"Controleurs:write"})
+     * @Groups({"User:read"})
      */
-    private $couriers;
+    private $courierArrivers;
+
 
     public function __construct()
     {
         $this->FicheDeControle = new ArrayCollection();
-        $this->couriers = new ArrayCollection();
+        $this->courierArrivers = new ArrayCollection();
     }
 
     /**
@@ -84,27 +77,30 @@ class Controleurs extends User
     }
 
     /**
-     * @return Collection<int, Courier>
+     * @return Collection<int, CourierArriver>
      */
-    public function getCouriers(): Collection
+    public function getCourierArrivers(): Collection
     {
-        return $this->couriers;
+        return $this->courierArrivers;
     }
 
-    public function addCourier(Courier $courier): self
+    public function addCourierArriver(CourierArriver $courierArriver): self
     {
-        if (!$this->couriers->contains($courier)) {
-            $this->couriers[] = $courier;
-            $courier->addControleur($this);
+        if (!$this->courierArrivers->contains($courierArriver)) {
+            $this->courierArrivers[] = $courierArriver;
+            $courierArriver->setControleurs($this);
         }
 
         return $this;
     }
 
-    public function removeCourier(Courier $courier): self
+    public function removeCourierArriver(CourierArriver $courierArriver): self
     {
-        if ($this->couriers->removeElement($courier)) {
-            $courier->removeControleur($this);
+        if ($this->courierArrivers->removeElement($courierArriver)) {
+            // set the owning side to null (unless already changed)
+            if ($courierArriver->getControleurs() === $this) {
+                $courierArriver->setControleurs(null);
+            }
         }
 
         return $this;

@@ -2,32 +2,32 @@
 
 namespace App\Repository;
 
-use App\Entity\Rapport;
+use App\Entity\Profil;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Rapport>
+ * @extends ServiceEntityRepository<Profil>
  *
- * @method Rapport|null find($id, $lockMode = null, $lockVersion = null)
- * @method Rapport|null findOneBy(array $criteria, array $orderBy = null)
- * @method Rapport[]    findAll()
- * @method Rapport[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Profil|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Profil|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Profil[]    findAll()
+ * @method Profil[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class RapportRepository extends ServiceEntityRepository
+class ProfilRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Rapport::class);
+        parent::__construct($registry, Profil::class);
     }
 
     /**
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function add(Rapport $entity, bool $flush = true): void
+    public function add(Profil $entity, bool $flush = true): void
     {
         $this->_em->persist($entity);
         if ($flush) {
@@ -39,7 +39,7 @@ class RapportRepository extends ServiceEntityRepository
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function remove(Rapport $entity, bool $flush = true): void
+    public function remove(Profil $entity, bool $flush = true): void
     {
         $this->_em->remove($entity);
         if ($flush) {
@@ -48,15 +48,15 @@ class RapportRepository extends ServiceEntityRepository
     }
 
     // /**
-    //  * @return Rapport[] Returns an array of Rapport objects
+    //  * @return Profil[] Returns an array of Profil objects
     //  */
     /*
     public function findByExampleField($value)
     {
-        return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.exampleField = :val')
             ->setParameter('val', $value)
-            ->orderBy('r.id', 'ASC')
+            ->orderBy('p.id', 'ASC')
             ->setMaxResults(10)
             ->getQuery()
             ->getResult()
@@ -65,10 +65,10 @@ class RapportRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Rapport
+    public function findOneBySomeField($value): ?Profil
     {
-        return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.exampleField = :val')
             ->setParameter('val', $value)
             ->getQuery()
             ->getOneOrNullResult()

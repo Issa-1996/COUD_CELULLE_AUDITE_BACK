@@ -13,10 +13,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * @ApiResource(
  *  routePrefix="/coud",
- *  attributes={
- *         "security"="is_granted('ROLE_COORDINATEUR', 'ROLE_SUPERADMIN')", 
- *         "security_message"="Vous n'avez pas access à cette Ressource",
- *     },
  *     collectionOperations={"POST","GET"},
  *     itemOperations={"PUT", "GET"},
  *  normalizationContext={"groups"={"Coordinateur:read"}},
@@ -36,14 +32,6 @@ class Coordinateur extends User
     private $FicheDeControle;
 
     /**
-     * @ORM\OneToMany(targetEntity=Rapport::class, mappedBy="coordinateur",cascade={"persist"})
-     * @ApiSubresource()
-     * @Groups({"Coordinateur:read"})
-     * @Groups({"Coordinateur:write"})
-     */
-    private $rapports;
-
-    /**
      * @ORM\OneToMany(targetEntity=Courier::class, mappedBy="coordinateur")
      * @ApiSubresource()
      * @Groups({"Coordinateur:read"})
@@ -54,7 +42,6 @@ class Coordinateur extends User
     public function __construct()
     {
         $this->FicheDeControle = new ArrayCollection();
-        $this->rapports = new ArrayCollection();
         $this->courier = new ArrayCollection();
     }
 
@@ -84,36 +71,6 @@ class Coordinateur extends User
             // set the owning side to null (unless already changed)
             if ($ficheDeControle->getCoordinateur() === $this) {
                 $ficheDeControle->setCoordinateur(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Rapport>
-     */
-    public function getRapports(): Collection
-    {
-        return $this->rapports;
-    }
-
-    public function addRapport(Rapport $rapport): self
-    {
-        if (!$this->rapports->contains($rapport)) {
-            $this->rapports[] = $rapport;
-            $rapport->setCoordinateur($this);
-        }
-
-        return $this;
-    }
-
-    public function removeRapport(Rapport $rapport): self
-    {
-        if ($this->rapports->removeElement($rapport)) {
-            // set the owning side to null (unless already changed)
-            if ($rapport->getCoordinateur() === $this) {
-                $rapport->setCoordinateur(null);
             }
         }
 

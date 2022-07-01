@@ -2,9 +2,7 @@
 
 namespace App\Entity;
 
-use App\Entity\Rapport;
 use App\Entity\Assistante;
-use App\Entity\Controleurs;
 use App\Entity\Coordinateur;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\CourierRepository;
@@ -19,16 +17,11 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
- * @ApiFilter(SearchFilter::class, properties={"nature":"exact"})
  * @ApiResource(
  *  routePrefix="/coud",
- *     collectionOperations={
- *          "POST"={
- *              "security"="is_granted('ROLE_ASSISTANTE', 'ROLE_COORDINATEUR', 'ROLE_SUPERADMIN')",
-*               "security_message"="Vous avez pas Accéss à ce ressource!!!",
- *          },"GET"},
+ *     collectionOperations={"POST","GET"},
  *     itemOperations={"PUT", "GET"},
- *  normalizationContext={"groups"={"Courier:read"}},
+ *  normalizationContext={"groups"={"CourierDepart:read"}},
  *  denormalizationContext={"groups"={"Courier:write"}},
  * )
  * @ORM\Entity(repositoryClass=CourierRepository::class)
@@ -42,14 +35,12 @@ class Courier
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      * @Groups({"Courier:read"})
-     * @Groups({"Rapport:read"})
      * @Groups({"CourierArriver:read"})
      * @Groups({"CourierDepart:read"}) 
-     * @Groups({"Rapport:read"})
-     * @Groups({"Rapport:write"})
-     * @Groups({"Facture:read"})
-     * @Groups({"Facture:write"})
      * @Groups({"User:read"})
+     * @Groups({"FicheDeControle:read"})
+     * @Groups({"FicheDeControle:write"})
+     * @Groups({"Controleurs:read"})
      */
     private $id;
 
@@ -61,8 +52,8 @@ class Courier
      * @Groups({"CourierArriver:write"})
      * @Groups({"CourierDepart:read"})
      * @Groups({"CourierDepart:write"})
-     * @Groups({"Rapport:read"})
      * @Groups({"User:read"})
+     * @Groups({"Controleurs:read"})
      */
     private $numeroCourier;
 
@@ -74,33 +65,10 @@ class Courier
      * @Groups({"CourierArriver:write"})
      * @Groups({"CourierDepart:read"})
      * @Groups({"CourierDepart:write"})
-     * @Groups({"Rapport:read"})
      * @Groups({"User:read"})
+     * @Groups({"Controleurs:read"})
      */
     private $object;
-
-    /**
-     * @ORM\ManyToMany(targetEntity=Controleurs::class, inversedBy="couriers")
-     * @Groups({"Courier:read"})
-     * @Groups({"Courier:write"})
-     * @Groups({"CourierArriver:read"})
-     * @Groups({"CourierArriver:write"})
-     * @Groups({"CourierDepart:read"})
-     * @Groups({"CourierDepart:write"})
-     * @Groups({"Rapport:read"})
-     */
-    private $controleurs;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Rapport::class, inversedBy="courier")
-     * @Groups({"Courier:read"})
-     * @Groups({"Courier:write"})
-     * @Groups({"CourierArriver:read"})
-     * @Groups({"CourierArriver:write"})
-     * @Groups({"CourierDepart:read"})
-     * @Groups({"CourierDepart:write"})
-     */
-    private $rapport;
 
     /**
      * @ORM\ManyToOne(targetEntity=Assistante::class, inversedBy="courier")
@@ -110,21 +78,32 @@ class Courier
      * @Groups({"CourierArriver:write"})
      * @Groups({"CourierDepart:read"})
      * @Groups({"CourierDepart:write"})
-     * @Groups({"Rapport:read"})
      */
     private $assistante;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Coordinateur::class, inversedBy="courier")
+     * @ORM\ManyToOne(targetEntity=Coordinateur::class, inversedBy="courier",cascade={"persist"})
      * @Groups({"Courier:read"})
      * @Groups({"Courier:write"})
      * @Groups({"CourierArriver:read"})
      * @Groups({"CourierArriver:write"})
      * @Groups({"CourierDepart:read"})
      * @Groups({"CourierDepart:write"})
-     * @Groups({"Rapport:read"})
      */
     private $coordinateur;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"Courier:read"})
+     * @Groups({"Courier:write"})
+     * @Groups({"CourierArriver:read"})
+     * @Groups({"CourierArriver:write"})
+     * @Groups({"CourierDepart:read"})
+     * @Groups({"CourierDepart:write"})
+     * @Groups({"User:read"})
+     * @Groups({"Controleurs:read"})
+     */
+    private $Date;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -134,14 +113,36 @@ class Courier
      * @Groups({"CourierArriver:write"})
      * @Groups({"CourierDepart:read"})
      * @Groups({"CourierDepart:write"})
-     * @Groups({"Rapport:read"})
+     * @Groups({"User:read"})
+     * @Groups({"Controleurs:read"})
      */
-    private $nature;
+    private $NumeroFacture;
 
-    public function __construct()
-    {
-        $this->controleurs = new ArrayCollection();
-    }
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"Courier:read"})
+     * @Groups({"Courier:write"})
+     * @Groups({"CourierArriver:read"})
+     * @Groups({"CourierArriver:write"})
+     * @Groups({"CourierDepart:read"})
+     * @Groups({"CourierDepart:write"})
+     * @Groups({"User:read"})
+     * @Groups({"Controleurs:read"})
+     */
+    private $montant;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"Courier:read"})
+     * @Groups({"Courier:write"})
+     * @Groups({"CourierArriver:read"})
+     * @Groups({"CourierArriver:write"})
+     * @Groups({"CourierDepart:read"})
+     * @Groups({"CourierDepart:write"})
+     * @Groups({"User:read"})
+     * @Groups({"Controleurs:read"})
+     */
+    private $beneficiaire;
 
     public function getId(): ?int
     {
@@ -172,42 +173,6 @@ class Courier
         return $this;
     }
 
-    /**
-     * @return Collection<int, Controleurs>
-     */
-    public function getControleurs(): Collection
-    {
-        return $this->controleurs;
-    }
-
-    public function addControleur(Controleurs $controleur): self
-    {
-        if (!$this->controleurs->contains($controleur)) {
-            $this->controleurs[] = $controleur;
-        }
-
-        return $this;
-    }
-
-    public function removeControleur(Controleurs $controleur): self
-    {
-        $this->controleurs->removeElement($controleur);
-
-        return $this;
-    }
-
-    public function getRapport(): ?Rapport
-    {
-        return $this->rapport;
-    }
-
-    public function setRapport(?Rapport $rapport): self
-    {
-        $this->rapport = $rapport;
-
-        return $this;
-    }
-
     public function getAssistante(): ?Assistante
     {
         return $this->assistante;
@@ -232,14 +197,50 @@ class Courier
         return $this;
     }
 
-    public function getNature(): ?string
+    public function getDate(): ?string
     {
-        return $this->nature;
+        return $this->Date;
     }
 
-    public function setNature(string $nature): self
+    public function setDate(?string $Date): self
     {
-        $this->nature = $nature;
+        $this->Date = $Date;
+
+        return $this;
+    }
+
+    public function getNumeroFacture(): ?string
+    {
+        return $this->NumeroFacture;
+    }
+
+    public function setNumeroFacture(string $NumeroFacture): self
+    {
+        $this->NumeroFacture = $NumeroFacture;
+
+        return $this;
+    }
+
+    public function getMontant(): ?string
+    {
+        return $this->montant;
+    }
+
+    public function setMontant(?string $montant): self
+    {
+        $this->montant = $montant;
+
+        return $this;
+    }
+
+    public function getBeneficiaire(): ?string
+    {
+        return $this->beneficiaire;
+    }
+
+    public function setBeneficiaire(?string $beneficiaire): self
+    {
+        $this->beneficiaire = $beneficiaire;
 
         return $this;
     }

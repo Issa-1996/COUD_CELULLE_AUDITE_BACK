@@ -11,51 +11,47 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Security\Core\User\UserInterface;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
-use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorMap({"user" = "User", "assistante" = "Assistante", "controleurs" = "Controleurs", "coordinateur" = "Coordinateur"})
- * @ApiFilter(SearchFilter::class, properties={"profil":"exact"})
+ * @UniqueEntity("username")
+ * @ApiFilter(SearchFilter::class, properties={"username":"exact"})
  * @ApiResource(
  *  routePrefix="/coud",
- *  attributes={
- *         "security"="is_granted('ROLE_SUPERADMIN', 'ROLE_COORDINATEUR')", 
- *         "security_message"="Vous n'avez pas access à cette Ressource",
- *     },
  *     collectionOperations={"POST","GET"},
  *     itemOperations={"PUT", "GET"},
  *  normalizationContext={"groups"={"User:read"}},
  *  denormalizationContext={"groups"={"User:write"}},
  * )
  */
-class User implements UserInterface, PasswordAuthenticatedUserInterface
+class User implements UserInterface
 {
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      * @Groups({"User:read"})
+     * @Groups({"User:write"})
      * @Groups({"Assistante:read"})
      * @Groups({"Controleurs:read"})
      * @Groups({"Coordinateur:read"})
      * @Groups({"Courier:read"})
      * @Groups({"Courier:write"})
-     * @Groups({"Rapport:read"})
-     * @Groups({"Rapport:write"})
-     * @Groups({"Facture:read"})
      * @Groups({"CourierDepart:read"})
      * @Groups({"CourierDepart:write"})
      * @Groups({"CourierArriver:read"})
      * @Groups({"CourierArriver:write"})
      * @Groups({"FicheDeControle:read"})
      * @Groups({"FicheDeControle:write"})
+     * @Groups({"Profil:read"})
      */
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=180, unique=true)
+     * @ORM\Column(type="string", length=180, unique=true, unique=true)
      * @Groups({"User:read"})
      * @Groups({"User:write"})
      * @Groups({"Assistante:read"})
@@ -65,8 +61,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @Groups({"Coordinateur:read"})
      * @Groups({"Coordinateur:write"})
      * @Groups({"Courier:read"})
-     * @Groups({"Rapport:read"})
-     * @Groups({"Facture:read"})
      * @Groups({"CourierDepart:read"})
      * @Groups({"CourierArriver:read"})
      * @Groups({"FicheDeControle:read"})
@@ -84,8 +78,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @Groups({"Coordinateur:read"})
      * @Groups({"Coordinateur:write"})
      * @Groups({"Courier:read"})
-     * @Groups({"Rapport:read"})
-     * @Groups({"Facture:read"})
      * @Groups({"CourierDepart:read"})
      * @Groups({"CourierArriver:read"})
      * @Groups({"FicheDeControle:read"})
@@ -113,8 +105,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @Groups({"Coordinateur:read"})
      * @Groups({"Coordinateur:write"})
      * @Groups({"Courier:read"})
-     * @Groups({"Rapport:read"})
-     * @Groups({"Facture:read"})
      * @Groups({"CourierDepart:read"})
      * @Groups({"CourierArriver:read"})
      * @Groups({"FicheDeControle:read"})
@@ -132,8 +122,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @Groups({"Coordinateur:read"})
      * @Groups({"Coordinateur:write"})
      * @Groups({"Courier:read"})
-     * @Groups({"Rapport:read"})
-     * @Groups({"Facture:read"})
      * @Groups({"CourierDepart:read"})
      * @Groups({"CourierArriver:read"})
      * @Groups({"FicheDeControle:read"})
@@ -151,8 +139,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @Groups({"Coordinateur:read"})
      * @Groups({"Coordinateur:write"})
      * @Groups({"Courier:read"})
-     * @Groups({"Rapport:read"})
-     * @Groups({"Facture:read"})
      * @Groups({"CourierDepart:read"})
      * @Groups({"CourierArriver:read"})
      * @Groups({"FicheDeControle:read"})
@@ -170,8 +156,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @Groups({"Coordinateur:read"})
      * @Groups({"Coordinateur:write"})
      * @Groups({"Courier:read"})
-     * @Groups({"Rapport:read"})
-     * @Groups({"Facture:read"})
      * @Groups({"CourierDepart:read"})
      * @Groups({"CourierArriver:read"})
      * @Groups({"FicheDeControle:read"})
@@ -189,32 +173,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @Groups({"Coordinateur:read"})
      * @Groups({"Coordinateur:write"})
      * @Groups({"Courier:read"})
-     * @Groups({"Rapport:read"})
-     * @Groups({"Facture:read"})
-     * @Groups({"CourierDepart:read"})
-     * @Groups({"CourierArriver:read"})
-     * @Groups({"FicheDeControle:read"})
-     */
-    private $profil;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @Groups({"User:read"})
-     * @Groups({"User:write"})
-     * @Groups({"Assistante:read"})
-     * @Groups({"Assistante:write"})
-     * @Groups({"Controleurs:read"})
-     * @Groups({"Controleurs:write"})
-     * @Groups({"Coordinateur:read"})
-     * @Groups({"Coordinateur:write"})
-     * @Groups({"Courier:read"})
-     * @Groups({"Rapport:read"})
-     * @Groups({"Facture:read"})
      * @Groups({"CourierDepart:read"})
      * @Groups({"CourierArriver:read"})
      * @Groups({"FicheDeControle:read"})
      */
     private $email;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Profil::class, inversedBy="user",cascade={"persist"})
+     * @Groups({"User:read"})
+     * @Groups({"User:write"})
+     */
+    private $profil;
 
     public function getId(): ?int
     {
@@ -266,16 +236,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @see PasswordAuthenticatedUserInterface
+     * @see UserInterface
      */
     public function getPassword(): string
     {
         return $this->password;
     }
-
+    
     public function setPassword(string $password): self
     {
-        $this->password = password_hash($password, PASSWORD_ARGON2I);
+        $this->password = $password;
 
         return $this;
     }
@@ -348,18 +318,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getProfil(): ?string
-    {
-        return $this->profil;
-    }
-
-    public function setProfil(string $profil): self
-    {
-        $this->profil = $profil;
-
-        return $this;
-    }
-
     public function getEmail(): ?string
     {
         return $this->email;
@@ -368,6 +326,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setEmail(string $email): self
     {
         $this->email = $email;
+
+        return $this;
+    }
+
+    public function getProfil(): ?Profil
+    {
+        return $this->profil;
+    }
+
+    public function setProfil(?Profil $profil): self
+    {
+        $this->profil = $profil;
 
         return $this;
     }

@@ -10,11 +10,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * @ApiResource(
  *  routePrefix="/coud",
- *     collectionOperations={
- *          "POST"={
- *              "security"="is_granted('ROLE_ASSISTANTE', 'ROLE_COORDINATEUR', 'ROLE_SUPERADMIN')",
-*               "security_message"="Vous avez pas Accéss à ce ressource!!!",
- *          },"GET"},
+ *     collectionOperations={"POST","GET"},
  *     itemOperations={"PUT", "GET"},
  *  normalizationContext={"groups"={"CourierDepart:read"}},
  *  denormalizationContext={"groups"={"CourierDepart:write"}},
@@ -28,17 +24,6 @@ class CourierDepart extends Courier
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"CourierDepart:read"})
      * @Groups({"CourierDepart:write"})
-     * @Groups({"Facture:read"})
-     * @Groups({"Rapport:read"})
-     */
-    private $dateDepart;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"CourierDepart:read"})
-     * @Groups({"CourierDepart:write"})
-     * @Groups({"Facture:read"})
-     * @Groups({"Rapport:read"})
      */
     private $destination;
 
@@ -46,8 +31,6 @@ class CourierDepart extends Courier
      * @ORM\Column(type="string", length=255)
      * @Groups({"CourierDepart:read"})
      * @Groups({"CourierDepart:write"})
-     * @Groups({"Facture:read"})
-     * @Groups({"Rapport:read"})
      */
     private $nombrePiece;
 
@@ -55,8 +38,6 @@ class CourierDepart extends Courier
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"CourierDepart:read"})
      * @Groups({"CourierDepart:write"})
-     * @Groups({"Facture:read"})
-     * @Groups({"Rapport:read"})
      */
     private $numeroArchive;
 
@@ -64,8 +45,6 @@ class CourierDepart extends Courier
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"CourierDepart:read"})
      * @Groups({"CourierDepart:write"})
-     * @Groups({"Facture:read"})
-     * @Groups({"Rapport:read"})
      */
     private $observation;
 
@@ -73,23 +52,9 @@ class CourierDepart extends Courier
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"CourierDepart:read"})
      * @Groups({"CourierDepart:write"})
-     * @Groups({"Facture:read"})
-     * @Groups({"Rapport:read"})
      */
     private $numeroOrdre;
 
-
-    public function getDateDepart(): ?string
-    {
-        return $this->dateDepart;
-    }
-
-    public function setDateDepart(?string $dateDepart): self
-    {
-        $this->dateDepart = $dateDepart;
-
-        return $this;
-    }
 
     public function getDestination(): ?string
     {

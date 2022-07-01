@@ -10,10 +10,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * @ApiResource(
  *  routePrefix="/coud",
- *  attributes={
- *         "security"="is_granted('ROLE_CONTROLEUR', 'COORDINATEUR', 'ROLE_SUPERADMIN')", 
- *         "security_message"="Vous n'avez pas access à cette Ressource",
- *     },
  *     collectionOperations={"POST","GET"},
  *     itemOperations={"PUT", "GET"},
  *  normalizationContext={"groups"={"FicheDeControle:read"}},
@@ -28,13 +24,20 @@ class FicheDeControle
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      * @Groups({"FicheDeControle:read"})
+     * @Groups({"FicheDeControle:write"})
+     * @Groups({"CourierArriver:read"})
+     * @Groups({"Controleurs:read"})
+     * @Groups({"User:read"})
      */
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"FicheDeControle:read"})
      * @Groups({"FicheDeControle:write"})
+     * @Groups({"CourierArriver:read"})
+     * @Groups({"Controleurs:read"})
+     * @Groups({"User:read"})
      */
     private $nomControleur;
 
@@ -42,6 +45,9 @@ class FicheDeControle
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"FicheDeControle:read"})
      * @Groups({"FicheDeControle:write"})
+     * @Groups({"CourierArriver:read"})
+     * @Groups({"Controleurs:read"})
+     * @Groups({"User:read"})
      */
     private $avisControleur;
 
@@ -49,6 +55,9 @@ class FicheDeControle
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"FicheDeControle:read"})
      * @Groups({"FicheDeControle:write"})
+     * @Groups({"CourierArriver:read"})
+     * @Groups({"Controleurs:read"})
+     * @Groups({"User:read"})
      */
     private $motivation;
 
@@ -56,6 +65,9 @@ class FicheDeControle
      * @ORM\Column(type="string", length=255)
      * @Groups({"FicheDeControle:read"})
      * @Groups({"FicheDeControle:write"})
+     * @Groups({"CourierArriver:read"})
+     * @Groups({"Controleurs:read"})
+     * @Groups({"User:read"})
      */
     private $recommandations;
 
@@ -72,6 +84,26 @@ class FicheDeControle
      * @Groups({"FicheDeControle:write"})
      */
     private $coordinateur;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Groups({"FicheDeControle:read"})
+     * @Groups({"FicheDeControle:write"})
+     * @Groups({"CourierArriver:read"})
+     * @Groups({"Controleurs:read"})
+     * @Groups({"User:read"})
+     */
+    private $objet;
+
+    /**
+     * @ORM\OneToOne(targetEntity=CourierArriver::class, inversedBy="ficheDeControle", cascade={"persist", "remove"})
+     * @Groups({"FicheDeControle:read"})
+     * @Groups({"FicheDeControle:write"})
+     * @Groups({"Controleurs:read"})
+     * @Groups({"User:read"})
+     */
+    private $courrierArriver;
+
 
     public function getId(): ?int
     {
@@ -146,6 +178,30 @@ class FicheDeControle
     public function setCoordinateur(?Coordinateur $coordinateur): self
     {
         $this->coordinateur = $coordinateur;
+
+        return $this;
+    }
+
+    public function getObjet(): ?string
+    {
+        return $this->objet;
+    }
+
+    public function setObjet(string $objet): self
+    {
+        $this->objet = $objet;
+
+        return $this;
+    }
+
+    public function getCourrierArriver(): ?CourierArriver
+    {
+        return $this->courrierArriver;
+    }
+
+    public function setCourrierArriver(?CourierArriver $courrierArriver): self
+    {
+        $this->courrierArriver = $courrierArriver;
 
         return $this;
     }
