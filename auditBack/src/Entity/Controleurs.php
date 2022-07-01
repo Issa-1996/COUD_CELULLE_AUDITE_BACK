@@ -32,17 +32,18 @@ class Controleurs extends User
     private $FicheDeControle;
 
     /**
-     * @ORM\OneToMany(targetEntity=Courier::class, mappedBy="controleur",cascade={"persist"})
+     * @ORM\OneToMany(targetEntity=CourierArriver::class, mappedBy="controleurs")
      * @Groups({"Controleurs:read"})
+     * @Groups({"Controleurs:write"})
      * @Groups({"User:read"})
      */
-    private $couriers;
+    private $courierArrivers;
 
 
     public function __construct()
     {
         $this->FicheDeControle = new ArrayCollection();
-        $this->couriers = new ArrayCollection();
+        $this->courierArrivers = new ArrayCollection();
     }
 
     /**
@@ -76,29 +77,29 @@ class Controleurs extends User
     }
 
     /**
-     * @return Collection<int, Courier>
+     * @return Collection<int, CourierArriver>
      */
-    public function getCouriers(): Collection
+    public function getCourierArrivers(): Collection
     {
-        return $this->couriers;
+        return $this->courierArrivers;
     }
 
-    public function addCourier(Courier $courier): self
+    public function addCourierArriver(CourierArriver $courierArriver): self
     {
-        if (!$this->couriers->contains($courier)) {
-            $this->couriers[] = $courier;
-            $courier->setControleur($this);
+        if (!$this->courierArrivers->contains($courierArriver)) {
+            $this->courierArrivers[] = $courierArriver;
+            $courierArriver->setControleurs($this);
         }
 
         return $this;
     }
 
-    public function removeCourier(Courier $courier): self
+    public function removeCourierArriver(CourierArriver $courierArriver): self
     {
-        if ($this->couriers->removeElement($courier)) {
+        if ($this->courierArrivers->removeElement($courierArriver)) {
             // set the owning side to null (unless already changed)
-            if ($courier->getControleur() === $this) {
-                $courier->setControleur(null);
+            if ($courierArriver->getControleurs() === $this) {
+                $courierArriver->setControleurs(null);
             }
         }
 
