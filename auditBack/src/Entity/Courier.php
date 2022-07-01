@@ -21,10 +21,9 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  *  routePrefix="/coud",
  *     collectionOperations={"POST","GET"},
  *     itemOperations={"PUT", "GET"},
- *  normalizationContext={"groups"={"Courier:read"}},
+ *  normalizationContext={"groups"={"CourierDepart:read"}},
  *  denormalizationContext={"groups"={"Courier:write"}},
  * )
- * @ApiFilter(SearchFilter::class, properties={"object":"exact","Date":"exact"})
  * @ORM\Entity(repositoryClass=CourierRepository::class)
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorMap({"courier" = "Courier","courierDepart" = "CourierDepart", "courierArriver" = "CourierArriver"})
@@ -39,9 +38,9 @@ class Courier
      * @Groups({"CourierArriver:read"})
      * @Groups({"CourierDepart:read"}) 
      * @Groups({"User:read"})
-     * @Groups({"Controleurs:read"})
      * @Groups({"FicheDeControle:read"})
      * @Groups({"FicheDeControle:write"})
+     * @Groups({"Controleurs:read"})
      */
     private $id;
 
@@ -92,26 +91,6 @@ class Courier
      * @Groups({"CourierDepart:write"})
      */
     private $coordinateur;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Controleurs::class, inversedBy="couriers")
-     * @Groups({"Courier:read"})
-     * @Groups({"Courier:write"})
-     * @Groups({"CourierArriver:read"})
-     * @Groups({"CourierArriver:write"})
-     * @Groups({"CourierDepart:read"})
-     * @Groups({"CourierDepart:write"})
-     */
-    private $controleur;
-
-
-    /**
-     * @ORM\OneToOne(targetEntity=FicheDeControle::class, inversedBy="courier", cascade={"persist", "remove"})
-     * @Groups({"Courier:read"})
-     * @Groups({"CourierArriver:read"})
-     * @Groups({"CourierDepart:read"})
-     */
-    private $ficheDeControle;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -214,31 +193,6 @@ class Courier
     public function setCoordinateur(?Coordinateur $coordinateur): self
     {
         $this->coordinateur = $coordinateur;
-
-        return $this;
-    }
-
-    public function getControleur(): ?Controleurs
-    {
-        return $this->controleur;
-    }
-
-    public function setControleur(?Controleurs $controleur): self
-    {
-        $this->controleur = $controleur;
-
-        return $this;
-    }
-
-
-    public function getFicheDeControle(): ?FicheDeControle
-    {
-        return $this->ficheDeControle;
-    }
-
-    public function setFicheDeControle(?FicheDeControle $ficheDeControle): self
-    {
-        $this->ficheDeControle = $ficheDeControle;
 
         return $this;
     }

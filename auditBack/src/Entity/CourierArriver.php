@@ -24,8 +24,8 @@ class CourierArriver extends Courier
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"CourierArriver:read"})
      * @Groups({"CourierArriver:write"})
-     * @Groups({"Controleurs:read"})
      * @Groups({"User:read"})
+     * @Groups({"Controleurs:read"})
      */
     private $expediteur;
 
@@ -33,8 +33,8 @@ class CourierArriver extends Courier
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"CourierArriver:read"})
      * @Groups({"CourierArriver:write"})
-     * @Groups({"Controleurs:read"})
      * @Groups({"User:read"})
+     * @Groups({"Controleurs:read"})
      */
     private $dateCorrespondance;
 
@@ -42,8 +42,8 @@ class CourierArriver extends Courier
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"CourierArriver:read"})
      * @Groups({"CourierArriver:write"})
-     * @Groups({"Controleurs:read"})
      * @Groups({"User:read"})
+     * @Groups({"Controleurs:read"})
      */
     private $numeroCorrespondance;
 
@@ -51,8 +51,8 @@ class CourierArriver extends Courier
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"CourierArriver:read"})
      * @Groups({"CourierArriver:write"})
-     * @Groups({"Controleurs:read"})
      * @Groups({"User:read"})
+     * @Groups({"Controleurs:read"})
      */
     private $dateReponse;
 
@@ -60,10 +60,26 @@ class CourierArriver extends Courier
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"CourierArriver:read"})
      * @Groups({"CourierArriver:write"})
-     * @Groups({"Controleurs:read"})
      * @Groups({"User:read"})
+     * @Groups({"Controleurs:read"})
      */
     private $numeroReponse;
+
+    /**
+     * @ORM\OneToOne(targetEntity=FicheDeControle::class, mappedBy="courrierArriver", cascade={"persist", "remove"})
+     * @Groups({"CourierArriver:read"})
+     * @Groups({"CourierArriver:write"})
+     * @Groups({"User:read"})
+     */
+    private $ficheDeControle;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Controleurs::class, inversedBy="courierArrivers")
+     * @Groups({"CourierArriver:read"})
+     * @Groups({"CourierArriver:write"})
+     * @Groups({"User:read"})
+     */
+    private $controleurs;
 
 
     public function getExpediteur(): ?string
@@ -122,6 +138,40 @@ class CourierArriver extends Courier
     public function setNumeroReponse(?string $numeroReponse): self
     {
         $this->numeroReponse = $numeroReponse;
+
+        return $this;
+    }
+
+    public function getFicheDeControle(): ?FicheDeControle
+    {
+        return $this->ficheDeControle;
+    }
+
+    public function setFicheDeControle(?FicheDeControle $ficheDeControle): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($ficheDeControle === null && $this->ficheDeControle !== null) {
+            $this->ficheDeControle->setCourrierArriver(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($ficheDeControle !== null && $ficheDeControle->getCourrierArriver() !== $this) {
+            $ficheDeControle->setCourrierArriver($this);
+        }
+
+        $this->ficheDeControle = $ficheDeControle;
+
+        return $this;
+    }
+
+    public function getControleurs(): ?Controleurs
+    {
+        return $this->controleurs;
+    }
+
+    public function setControleurs(?Controleurs $controleurs): self
+    {
+        $this->controleurs = $controleurs;
 
         return $this;
     }

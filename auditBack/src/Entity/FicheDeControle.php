@@ -25,21 +25,17 @@ class FicheDeControle
      * @ORM\Column(type="integer")
      * @Groups({"FicheDeControle:read"})
      * @Groups({"FicheDeControle:write"})
-     * @Groups({"Courier:read"})
      * @Groups({"CourierArriver:read"})
-     * @Groups({"CourierDepart:read"})
      * @Groups({"Controleurs:read"})
      * @Groups({"User:read"})
      */
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"FicheDeControle:read"})
      * @Groups({"FicheDeControle:write"})
-     * @Groups({"Courier:read"})
      * @Groups({"CourierArriver:read"})
-     * @Groups({"CourierDepart:read"})
      * @Groups({"Controleurs:read"})
      * @Groups({"User:read"})
      */
@@ -49,9 +45,7 @@ class FicheDeControle
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"FicheDeControle:read"})
      * @Groups({"FicheDeControle:write"})
-     * @Groups({"Courier:read"})
      * @Groups({"CourierArriver:read"})
-     * @Groups({"CourierDepart:read"})
      * @Groups({"Controleurs:read"})
      * @Groups({"User:read"})
      */
@@ -61,9 +55,7 @@ class FicheDeControle
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"FicheDeControle:read"})
      * @Groups({"FicheDeControle:write"})
-     * @Groups({"Courier:read"})
      * @Groups({"CourierArriver:read"})
-     * @Groups({"CourierDepart:read"})
      * @Groups({"Controleurs:read"})
      * @Groups({"User:read"})
      */
@@ -73,9 +65,7 @@ class FicheDeControle
      * @ORM\Column(type="string", length=255)
      * @Groups({"FicheDeControle:read"})
      * @Groups({"FicheDeControle:write"})
-     * @Groups({"Courier:read"})
      * @Groups({"CourierArriver:read"})
-     * @Groups({"CourierDepart:read"})
      * @Groups({"Controleurs:read"})
      * @Groups({"User:read"})
      */
@@ -99,20 +89,21 @@ class FicheDeControle
      * @ORM\Column(type="string", length=255)
      * @Groups({"FicheDeControle:read"})
      * @Groups({"FicheDeControle:write"})
-     * @Groups({"Courier:read"})
      * @Groups({"CourierArriver:read"})
-     * @Groups({"CourierDepart:read"})
      * @Groups({"Controleurs:read"})
      * @Groups({"User:read"})
      */
     private $objet;
 
     /**
-     * @ORM\OneToOne(targetEntity=Courier::class, mappedBy="ficheDeControle", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=CourierArriver::class, inversedBy="ficheDeControle", cascade={"persist", "remove"})
      * @Groups({"FicheDeControle:read"})
      * @Groups({"FicheDeControle:write"})
+     * @Groups({"Controleurs:read"})
+     * @Groups({"User:read"})
      */
-    private $courier;
+    private $courrierArriver;
+
 
     public function getId(): ?int
     {
@@ -203,24 +194,14 @@ class FicheDeControle
         return $this;
     }
 
-    public function getCourier(): ?Courier
+    public function getCourrierArriver(): ?CourierArriver
     {
-        return $this->courier;
+        return $this->courrierArriver;
     }
 
-    public function setCourier(?Courier $courier): self
+    public function setCourrierArriver(?CourierArriver $courrierArriver): self
     {
-        // unset the owning side of the relation if necessary
-        if ($courier === null && $this->courier !== null) {
-            $this->courier->setFicheDeControle(null);
-        }
-
-        // set the owning side of the relation if necessary
-        if ($courier !== null && $courier->getFicheDeControle() !== $this) {
-            $courier->setFicheDeControle($this);
-        }
-
-        $this->courier = $courier;
+        $this->courrierArriver = $courrierArriver;
 
         return $this;
     }
