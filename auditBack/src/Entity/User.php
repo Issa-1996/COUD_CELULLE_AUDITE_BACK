@@ -51,7 +51,7 @@ class User implements UserInterface
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=180, unique=true, unique=true)
+     * @ORM\Column(type="string", length=180, unique=true)
      * @Groups({"User:read"})
      * @Groups({"User:write"})
      * @Groups({"Assistante:read"})
@@ -95,7 +95,7 @@ class User implements UserInterface
     private $password;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true, unique=true)
      * @Groups({"User:read"})
      * @Groups({"User:write"})
      * @Groups({"Assistante:read"})
@@ -163,7 +163,7 @@ class User implements UserInterface
     private $dateDeNaissance;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
      * @Groups({"User:read"})
      * @Groups({"User:write"})
      * @Groups({"Assistante:read"})

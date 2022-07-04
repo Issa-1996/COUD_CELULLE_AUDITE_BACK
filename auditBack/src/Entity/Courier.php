@@ -53,6 +53,7 @@ class Courier
      * @Groups({"CourierDepart:read"})
      * @Groups({"CourierDepart:write"})
      * @Groups({"User:read"})
+     * @Groups({"FicheDeControle:read"})
      * @Groups({"Controleurs:read"})
      */
     private $numeroCourier;
@@ -66,6 +67,7 @@ class Courier
      * @Groups({"CourierDepart:read"})
      * @Groups({"CourierDepart:write"})
      * @Groups({"User:read"})
+     * @Groups({"FicheDeControle:read"})
      * @Groups({"Controleurs:read"})
      */
     private $object;
@@ -102,6 +104,7 @@ class Courier
      * @Groups({"CourierDepart:write"})
      * @Groups({"User:read"})
      * @Groups({"Controleurs:read"})
+     * @Groups({"FicheDeControle:read"})
      */
     private $Date;
 
@@ -115,6 +118,7 @@ class Courier
      * @Groups({"CourierDepart:write"})
      * @Groups({"User:read"})
      * @Groups({"Controleurs:read"})
+     * @Groups({"FicheDeControle:read"})
      */
     private $NumeroFacture;
 
@@ -128,6 +132,7 @@ class Courier
      * @Groups({"CourierDepart:write"})
      * @Groups({"User:read"})
      * @Groups({"Controleurs:read"})
+     * @Groups({"FicheDeControle:read"})
      */
     private $montant;
 
@@ -141,6 +146,7 @@ class Courier
      * @Groups({"CourierDepart:write"})
      * @Groups({"User:read"})
      * @Groups({"Controleurs:read"})
+     * @Groups({"FicheDeControle:read"})
      */
     private $beneficiaire;
 
