@@ -26,6 +26,7 @@ class CourierArriver extends Courier
      * @Groups({"CourierArriver:write"})
      * @Groups({"User:read"})
      * @Groups({"Controleurs:read"})
+     * @Groups({"FicheDeControle:read"})
      */
     private $expediteur;
 
@@ -35,15 +36,17 @@ class CourierArriver extends Courier
      * @Groups({"CourierArriver:write"})
      * @Groups({"User:read"})
      * @Groups({"Controleurs:read"})
+     * @Groups({"FicheDeControle:read"})
      */
     private $dateCorrespondance;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true, unique=true)
      * @Groups({"CourierArriver:read"})
      * @Groups({"CourierArriver:write"})
      * @Groups({"User:read"})
      * @Groups({"Controleurs:read"})
+     * @Groups({"FicheDeControle:read"})
      */
     private $numeroCorrespondance;
 
@@ -53,15 +56,17 @@ class CourierArriver extends Courier
      * @Groups({"CourierArriver:write"})
      * @Groups({"User:read"})
      * @Groups({"Controleurs:read"})
+     * @Groups({"FicheDeControle:read"})
      */
     private $dateReponse;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true, unique=true)
      * @Groups({"CourierArriver:read"})
      * @Groups({"CourierArriver:write"})
      * @Groups({"User:read"})
      * @Groups({"Controleurs:read"})
+     * @Groups({"FicheDeControle:read"})
      */
     private $numeroReponse;
 

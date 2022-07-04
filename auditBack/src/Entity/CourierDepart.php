@@ -35,7 +35,7 @@ class CourierDepart extends Courier
     private $nombrePiece;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true, unique=true)
      * @Groups({"CourierDepart:read"})
      * @Groups({"CourierDepart:write"})
      */
@@ -49,7 +49,7 @@ class CourierDepart extends Courier
     private $observation;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true, unique=true)
      * @Groups({"CourierDepart:read"})
      * @Groups({"CourierDepart:write"})
      */

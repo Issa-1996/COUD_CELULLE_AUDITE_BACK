@@ -25,7 +25,7 @@ class AppFixtures extends Fixture
             $coordinateur->setProfil($profilCoordinateur);
             $coordinateur->setPrenom("Issa");
             $coordinateur->setNom("SARR");
-            $coordinateur->setMatricule("23456");
+            $coordinateur->setMatricule("00001");
             $coordinateur->setDateDeNaissance("10/10/2020");
             $coordinateur->setEmail("issa@gmail.com");
             $password = $this->passwordEncoder->encodePassword($coordinateur,'password');
@@ -39,9 +39,9 @@ class AppFixtures extends Fixture
             $controleurs->setProfil($profilControleurs);
             $controleurs->setPrenom("Cheikh Ibra");
             $controleurs->setNom("DIOP");
-            $controleurs->setMatricule("123456");
+            $controleurs->setMatricule("00002");
             $controleurs->setDateDeNaissance("10/10/2020");
-            $controleurs->setEmail("coud@gmail.com");
+            $controleurs->setEmail("cheikhibra@gmail.com");
             $password = $this->passwordEncoder->encodePassword($controleurs,'password');
             $controleurs->setPassword($password);
 
@@ -51,11 +51,11 @@ class AppFixtures extends Fixture
             $assistante->setUsername("admin3");
             $assistante->setRoles(["ROLE_ASSISTANTE"]);
             $assistante->setProfil($profilAssistante);
-            $assistante->setPrenom("Cheikh Ibra");
-            $assistante->setNom("DIOP");
-            $assistante->setMatricule("123456");
+            $assistante->setPrenom("Ndeye Gnilane");
+            $assistante->setNom("FAYE");
+            $assistante->setMatricule("00003");
             $assistante->setDateDeNaissance("10/10/2020");
-            $assistante->setEmail("coud@gmail.com");
+            $assistante->setEmail("ndeyegnilane@gmail.com");
             $password = $this->passwordEncoder->encodePassword($assistante,'password');
             $assistante->setPassword($password);
 
