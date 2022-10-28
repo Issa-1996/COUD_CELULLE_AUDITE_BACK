@@ -5,11 +5,13 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\CourierArriverRepository;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ApiResource(
  *  routePrefix="/coud",
+ *     attributes={"pagination_items_per_page"=100000000},
  *     collectionOperations={"POST","GET"},
  *     itemOperations={"PUT", "GET"},
  *  normalizationContext={"groups"={"CourierArriver:read"}},
@@ -72,6 +74,7 @@ class CourierArriver extends Courier
 
     /**
      * @ORM\OneToOne(targetEntity=FicheDeControle::class, mappedBy="courrierArriver", cascade={"persist", "remove"})
+     * @ApiSubresource()
      * @Groups({"CourierArriver:read"})
      * @Groups({"CourierArriver:write"})
      * @Groups({"User:read"})
@@ -83,8 +86,26 @@ class CourierArriver extends Courier
      * @Groups({"CourierArriver:read"})
      * @Groups({"CourierArriver:write"})
      * @Groups({"User:read"})
+     * @Groups({"Courier:read"})
+     * @Groups({"Courier:write"})
      */
     private $controleurs;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"CourierArriver:read"})
+     * @Groups({"CourierArriver:write"})
+     * @Groups({"User:read"})
+     */
+    private $etat;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"CourierArriver:read"})
+     * @Groups({"CourierArriver:write"})
+     * @Groups({"User:read"})
+     */
+    private $statut;
 
 
     public function getExpediteur(): ?string
@@ -177,6 +198,30 @@ class CourierArriver extends Courier
     public function setControleurs(?Controleurs $controleurs): self
     {
         $this->controleurs = $controleurs;
+
+        return $this;
+    }
+
+    public function getEtat(): ?string
+    {
+        return $this->etat;
+    }
+
+    public function setEtat(?string $etat): self
+    {
+        $this->etat = $etat;
+
+        return $this;
+    }
+
+    public function getStatut(): ?string
+    {
+        return $this->statut;
+    }
+
+    public function setStatut(?string $statut): self
+    {
+        $this->statut = $statut;
 
         return $this;
     }

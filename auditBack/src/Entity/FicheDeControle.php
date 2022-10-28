@@ -26,7 +26,9 @@ class FicheDeControle
      * @Groups({"FicheDeControle:read"})
      * @Groups({"FicheDeControle:write"})
      * @Groups({"CourierArriver:read"})
+     * @Groups({"CourierArriver:write"})
      * @Groups({"Controleurs:read"})
+     * @Groups({"Coordinateur:read"})
      * @Groups({"User:read"})
      */
     private $id;
@@ -37,6 +39,7 @@ class FicheDeControle
      * @Groups({"FicheDeControle:write"})
      * @Groups({"CourierArriver:read"})
      * @Groups({"Controleurs:read"})
+     * @Groups({"Coordinateur:read"})
      * @Groups({"User:read"})
      */
     private $nomControleur;
@@ -47,6 +50,7 @@ class FicheDeControle
      * @Groups({"FicheDeControle:write"})
      * @Groups({"CourierArriver:read"})
      * @Groups({"Controleurs:read"})
+     * @Groups({"Coordinateur:read"})
      * @Groups({"User:read"})
      */
     private $avisControleur;
@@ -57,6 +61,7 @@ class FicheDeControle
      * @Groups({"FicheDeControle:write"})
      * @Groups({"CourierArriver:read"})
      * @Groups({"Controleurs:read"})
+     * @Groups({"Coordinateur:read"})
      * @Groups({"User:read"})
      */
     private $motivation;
@@ -67,6 +72,7 @@ class FicheDeControle
      * @Groups({"FicheDeControle:write"})
      * @Groups({"CourierArriver:read"})
      * @Groups({"Controleurs:read"})
+     * @Groups({"Coordinateur:read"})
      * @Groups({"User:read"})
      */
     private $recommandations;
