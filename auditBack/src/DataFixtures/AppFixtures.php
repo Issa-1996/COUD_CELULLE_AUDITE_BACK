@@ -27,6 +27,7 @@ class AppFixtures extends Fixture
             $coordinateur->setNom("SARR");
             $coordinateur->setMatricule("00001");
             $coordinateur->setDateDeNaissance("10/10/2020");
+            $coordinateur->setDate("10/06/2020");
             $coordinateur->setEmail("issa@gmail.com");
             $password = $this->passwordEncoder->encodePassword($coordinateur,'password');
             $coordinateur->setPassword($password);
@@ -41,6 +42,7 @@ class AppFixtures extends Fixture
             $controleurs->setNom("DIOP");
             $controleurs->setMatricule("00002");
             $controleurs->setDateDeNaissance("10/10/2020");
+            $controleurs->setDate("10/03/2020");
             $controleurs->setEmail("cheikhibra@gmail.com");
             $password = $this->passwordEncoder->encodePassword($controleurs,'password');
             $controleurs->setPassword($password);
@@ -55,6 +57,7 @@ class AppFixtures extends Fixture
             $assistante->setNom("FAYE");
             $assistante->setMatricule("00003");
             $assistante->setDateDeNaissance("10/10/2020");
+            $assistante->setDate("10/05/2020");
             $assistante->setEmail("ndeyegnilane@gmail.com");
             $password = $this->passwordEncoder->encodePassword($assistante,'password');
             $assistante->setPassword($password);
