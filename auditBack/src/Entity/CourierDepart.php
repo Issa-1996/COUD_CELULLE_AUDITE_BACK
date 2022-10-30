@@ -10,6 +10,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * @ApiResource(
  *  routePrefix="/coud",
+ *     attributes={"pagination_items_per_page"=100000000},
  *     collectionOperations={"POST","GET"},
  *     itemOperations={"PUT","GET"},
  *  normalizationContext={"groups"={"CourierDepart:read"}},

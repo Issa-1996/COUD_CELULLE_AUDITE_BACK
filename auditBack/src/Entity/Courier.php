@@ -18,6 +18,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
  * @ApiResource(
+ * attributes={"pagination_items_per_page"=100000000},
  *  routePrefix="/coud",
  *     collectionOperations={"POST","GET"},
  *     itemOperations={"PUT", "GET"},
@@ -41,6 +42,7 @@ class Courier
      * @Groups({"FicheDeControle:read"})
      * @Groups({"FicheDeControle:write"})
      * @Groups({"Controleurs:read"})
+     * @Groups({"Coordinateur:read"})
      */
     private $id;
 
@@ -55,6 +57,7 @@ class Courier
      * @Groups({"User:read"})
      * @Groups({"FicheDeControle:read"})
      * @Groups({"Controleurs:read"})
+     * @Groups({"Coordinateur:read"})
      */
     private $numeroCourier;
 
@@ -69,6 +72,7 @@ class Courier
      * @Groups({"User:read"})
      * @Groups({"FicheDeControle:read"})
      * @Groups({"Controleurs:read"})
+     * @Groups({"Coordinateur:read"})
      */
     private $object;
 
@@ -105,6 +109,7 @@ class Courier
      * @Groups({"User:read"})
      * @Groups({"Controleurs:read"})
      * @Groups({"FicheDeControle:read"})
+     * @Groups({"Coordinateur:read"})
      */
     private $Date;
 
@@ -119,6 +124,7 @@ class Courier
      * @Groups({"User:read"})
      * @Groups({"Controleurs:read"})
      * @Groups({"FicheDeControle:read"})
+     * @Groups({"Coordinateur:read"})
      */
     private $NumeroFacture;
 
@@ -133,6 +139,7 @@ class Courier
      * @Groups({"User:read"})
      * @Groups({"Controleurs:read"})
      * @Groups({"FicheDeControle:read"})
+     * @Groups({"Coordinateur:read"})
      */
     private $montant;
 
@@ -147,8 +154,10 @@ class Courier
      * @Groups({"User:read"})
      * @Groups({"Controleurs:read"})
      * @Groups({"FicheDeControle:read"})
+     * @Groups({"Coordinateur:read"})
      */
     private $beneficiaire;
+
 
     public function getId(): ?int
     {
