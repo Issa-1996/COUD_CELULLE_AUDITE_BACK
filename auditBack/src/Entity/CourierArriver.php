@@ -96,6 +96,8 @@ class CourierArriver extends Courier
      * @Groups({"CourierArriver:read"})
      * @Groups({"CourierArriver:write"})
      * @Groups({"User:read"})
+     * @Groups({"FicheDeControle:read"})
+     * @Groups({"FicheDeControle:write"})
      */
     private $etat;
 
@@ -104,6 +106,8 @@ class CourierArriver extends Courier
      * @Groups({"CourierArriver:read"})
      * @Groups({"CourierArriver:write"})
      * @Groups({"User:read"})
+     * @Groups({"FicheDeControle:read"})
+     * @Groups({"FicheDeControle:write"})
      */
     private $statut;
 

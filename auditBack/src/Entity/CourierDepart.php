@@ -56,6 +56,13 @@ class CourierDepart extends Courier
      */
     private $numeroOrdre;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"CourierDepart:read"})
+     * @Groups({"CourierDepart:write"})
+     */
+    private $type;
+
 
     public function getDestination(): ?string
     {
@@ -113,6 +120,18 @@ class CourierDepart extends Courier
     public function setNumeroOrdre(?string $numeroOrdre): self
     {
         $this->numeroOrdre = $numeroOrdre;
+
+        return $this;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(?string $type): self
+    {
+        $this->type = $type;
 
         return $this;
     }
