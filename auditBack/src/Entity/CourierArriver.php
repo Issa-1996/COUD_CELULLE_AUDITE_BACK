@@ -111,6 +111,16 @@ class CourierArriver extends Courier
      */
     private $statut;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"CourierArriver:read"})
+     * @Groups({"CourierArriver:write"})
+     * @Groups({"User:read"})
+     * @Groups({"FicheDeControle:read"})
+     * @Groups({"FicheDeControle:write"})
+     */
+    private $typeDeCourrier;
+
 
     public function getExpediteur(): ?string
     {
@@ -226,6 +236,18 @@ class CourierArriver extends Courier
     public function setStatut(?string $statut): self
     {
         $this->statut = $statut;
+
+        return $this;
+    }
+
+    public function getTypeDeCourrier(): ?string
+    {
+        return $this->typeDeCourrier;
+    }
+
+    public function setTypeDeCourrier(?string $typeDeCourrier): self
+    {
+        $this->typeDeCourrier = $typeDeCourrier;
 
         return $this;
     }
