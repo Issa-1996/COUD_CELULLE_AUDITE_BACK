@@ -34,50 +34,6 @@ class CourierArriver extends Courier
     private $expediteur;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"CourierArriver:read"})
-     * @Groups({"CourierArriver:write"})
-     * @Groups({"User:read"})
-     * @Groups({"Controleurs:read"})
-     * @Groups({"FicheDeControle:read"})
-     * @Groups({"Assistante:read"})
-     */
-    private $dateCorrespondance;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true, unique=true)
-     * @Groups({"CourierArriver:read"})
-     * @Groups({"CourierArriver:write"})
-     * @Groups({"User:read"})
-     * @Groups({"Controleurs:read"})
-     * @Groups({"FicheDeControle:read"})
-     * @Groups({"Assistante:read"})
-     */
-    private $numeroCorrespondance;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"CourierArriver:read"})
-     * @Groups({"CourierArriver:write"})
-     * @Groups({"User:read"})
-     * @Groups({"Controleurs:read"})
-     * @Groups({"FicheDeControle:read"})
-     * @Groups({"Assistante:read"})
-     */
-    private $dateReponse;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true, unique=true)
-     * @Groups({"CourierArriver:read"})
-     * @Groups({"CourierArriver:write"})
-     * @Groups({"User:read"})
-     * @Groups({"Controleurs:read"})
-     * @Groups({"FicheDeControle:read"})
-     * @Groups({"Assistante:read"})
-     */
-    private $numeroReponse;
-
-    /**
      * @ORM\OneToOne(targetEntity=FicheDeControle::class, mappedBy="courrierArriver", cascade={"persist", "remove"})
      * @ApiSubresource()
      * @Groups({"CourierArriver:read"})
@@ -86,17 +42,6 @@ class CourierArriver extends Courier
      * @Groups({"Assistante:read"})
      */
     private $ficheDeControle;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Controleurs::class, inversedBy="courierArrivers")
-     * @Groups({"CourierArriver:read"})
-     * @Groups({"CourierArriver:write"})
-     * @Groups({"User:read"})
-     * @Groups({"Courier:read"})
-     * @Groups({"Courier:write"})
-     * @Groups({"Assistante:read"})
-     */
-    private $controleurs;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -131,6 +76,28 @@ class CourierArriver extends Courier
      */
     private $typeDeCourrier;
 
+    /**
+     * @ORM\Column(type="string")
+     * @Groups({"CourierArriver:read"})
+     * @Groups({"CourierArriver:write"})
+     * @Groups({"User:read"})
+     * @Groups({"FicheDeControle:read"})
+     * @Groups({"FicheDeControle:write"})
+     * @Groups({"Assistante:read"})
+     */
+    private $dateArriver;
+
+    /**
+     * @ORM\Column(type="string", length=255 , unique=true))
+     * @Groups({"CourierArriver:read"})
+     * @Groups({"CourierArriver:write"})
+     * @Groups({"User:read"})
+     * @Groups({"FicheDeControle:read"})
+     * @Groups({"FicheDeControle:write"})
+     * @Groups({"Assistante:read"})
+     */
+    private $numeroArriver;
+
 
     public function getExpediteur(): ?string
     {
@@ -140,54 +107,6 @@ class CourierArriver extends Courier
     public function setExpediteur(?string $expediteur): self
     {
         $this->expediteur = $expediteur;
-
-        return $this;
-    }
-
-    public function getDateCorrespondance(): ?string
-    {
-        return $this->dateCorrespondance;
-    }
-
-    public function setDateCorrespondance(?string $dateCorrespondance): self
-    {
-        $this->dateCorrespondance = $dateCorrespondance;
-
-        return $this;
-    }
-
-    public function getNumeroCorrespondance(): ?string
-    {
-        return $this->numeroCorrespondance;
-    }
-
-    public function setNumeroCorrespondance(?string $numeroCorrespondance): self
-    {
-        $this->numeroCorrespondance = $numeroCorrespondance;
-
-        return $this;
-    }
-
-    public function getDateReponse(): ?string
-    {
-        return $this->dateReponse;
-    }
-
-    public function setDateReponse(?string $dateReponse): self
-    {
-        $this->dateReponse = $dateReponse;
-
-        return $this;
-    }
-
-    public function getNumeroReponse(): ?string
-    {
-        return $this->numeroReponse;
-    }
-
-    public function setNumeroReponse(?string $numeroReponse): self
-    {
-        $this->numeroReponse = $numeroReponse;
 
         return $this;
     }
@@ -210,18 +129,6 @@ class CourierArriver extends Courier
         }
 
         $this->ficheDeControle = $ficheDeControle;
-
-        return $this;
-    }
-
-    public function getControleurs(): ?Controleurs
-    {
-        return $this->controleurs;
-    }
-
-    public function setControleurs(?Controleurs $controleurs): self
-    {
-        $this->controleurs = $controleurs;
 
         return $this;
     }
@@ -258,6 +165,30 @@ class CourierArriver extends Courier
     public function setTypeDeCourrier(?string $typeDeCourrier): self
     {
         $this->typeDeCourrier = $typeDeCourrier;
+
+        return $this;
+    }
+
+    public function getDateArriver(): ?string
+    {
+        return $this->dateArriver;
+    }
+
+    public function setDateArriver(string $dateArriver): self
+    {
+        $this->dateArriver = $dateArriver;
+
+        return $this;
+    }
+
+    public function getNumeroArriver(): ?string
+    {
+        return $this->numeroArriver;
+    }
+
+    public function setNumeroArriver(string $numeroArriver): self
+    {
+        $this->numeroArriver = $numeroArriver;
 
         return $this;
     }

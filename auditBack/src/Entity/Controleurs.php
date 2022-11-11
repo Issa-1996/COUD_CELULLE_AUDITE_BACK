@@ -28,22 +28,25 @@ class Controleurs extends User
      * @Groups({"Controleurs:read"})
      * @Groups({"Controleurs:write"})
      * @Groups({"User:read"})
+     * @Groups({"Courier:read"})
+     * @Groups({"Courier:write"})
      */
     private $FicheDeControle;
 
     /**
-     * @ORM\OneToMany(targetEntity=CourierArriver::class, mappedBy="controleurs")
+     * @ORM\OneToMany(targetEntity=Courier::class, mappedBy="controleurs")
      * @Groups({"Controleurs:read"})
      * @Groups({"Controleurs:write"})
      * @Groups({"User:read"})
      */
-    private $courierArrivers;
+    private $courrier;
 
 
     public function __construct()
     {
         $this->FicheDeControle = new ArrayCollection();
         $this->courierArrivers = new ArrayCollection();
+        $this->courrier = new ArrayCollection();
     }
 
     /**
@@ -77,29 +80,29 @@ class Controleurs extends User
     }
 
     /**
-     * @return Collection<int, CourierArriver>
+     * @return Collection<int, Courier>
      */
-    public function getCourierArrivers(): Collection
+    public function getCourrier(): Collection
     {
-        return $this->courierArrivers;
+        return $this->courrier;
     }
 
-    public function addCourierArriver(CourierArriver $courierArriver): self
+    public function addCourrier(Courier $courrier): self
     {
-        if (!$this->courierArrivers->contains($courierArriver)) {
-            $this->courierArrivers[] = $courierArriver;
-            $courierArriver->setControleurs($this);
+        if (!$this->courrier->contains($courrier)) {
+            $this->courrier[] = $courrier;
+            $courrier->setControleurs($this);
         }
 
         return $this;
     }
 
-    public function removeCourierArriver(CourierArriver $courierArriver): self
+    public function removeCourrier(Courier $courrier): self
     {
-        if ($this->courierArrivers->removeElement($courierArriver)) {
+        if ($this->courrier->removeElement($courrier)) {
             // set the owning side to null (unless already changed)
-            if ($courierArriver->getControleurs() === $this) {
-                $courierArriver->setControleurs(null);
+            if ($courrier->getControleurs() === $this) {
+                $courrier->setControleurs(null);
             }
         }
 

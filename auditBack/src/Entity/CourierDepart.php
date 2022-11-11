@@ -20,85 +20,45 @@ use Symfony\Component\Serializer\Annotation\Groups;
  */
 class CourierDepart extends Courier
 {
-
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"CourierDepart:read"})
      * @Groups({"CourierDepart:write"})
-     */
-    private $destination;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @Groups({"CourierDepart:read"})
-     * @Groups({"CourierDepart:write"})
-     */
-    private $nombrePiece;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true, unique=true)
-     * @Groups({"CourierDepart:read"})
-     * @Groups({"CourierDepart:write"})
-     */
-    private $numeroArchive;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"CourierDepart:read"})
-     * @Groups({"CourierDepart:write"})
+     * @Groups({"Assistante:read"})
+     * @Groups({"Assistante:write"})
+     * 
      */
     private $observation;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true, unique=true)
-     * @Groups({"CourierDepart:read"})
-     * @Groups({"CourierDepart:write"})
-     */
-    private $numeroOrdre;
-
-    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"CourierDepart:read"})
      * @Groups({"CourierDepart:write"})
+     * @Groups({"Assistante:read"})
+     * @Groups({"Assistante:write"})
+     * 
      */
     private $type;
 
+    /**
+     * @ORM\Column(type="string")
+     * @Groups({"CourierDepart:read"})
+     * @Groups({"CourierDepart:write"})
+     * @Groups({"Assistante:read"})
+     * @Groups({"Assistante:write"})
+     * 
+     */
+    private $dateDepart;
 
-    public function getDestination(): ?string
-    {
-        return $this->destination;
-    }
-
-    public function setDestination(?string $destination): self
-    {
-        $this->destination = $destination;
-
-        return $this;
-    }
-
-    public function getNombrePiece(): ?string
-    {
-        return $this->nombrePiece;
-    }
-
-    public function setNombrePiece(string $nombrePiece): self
-    {
-        $this->nombrePiece = $nombrePiece;
-
-        return $this;
-    }
-
-    public function getNumeroArchive(): ?string
-    {
-        return $this->numeroArchive;
-    }
-
-    public function setNumeroArchive(?string $numeroArchive): self
-    {
-        $this->numeroArchive = $numeroArchive;
-
-        return $this;
-    }
+    /**
+     * @ORM\Column(type="string", length=255, unique=true)
+     * @Groups({"CourierDepart:read"})
+     * @Groups({"CourierDepart:write"})
+     * @Groups({"Assistante:read"})
+     * @Groups({"Assistante:write"})
+     * 
+     */
+    private $numeroDepart;
 
     public function getObservation(): ?string
     {
@@ -112,18 +72,6 @@ class CourierDepart extends Courier
         return $this;
     }
 
-    public function getNumeroOrdre(): ?string
-    {
-        return $this->numeroOrdre;
-    }
-
-    public function setNumeroOrdre(?string $numeroOrdre): self
-    {
-        $this->numeroOrdre = $numeroOrdre;
-
-        return $this;
-    }
-
     public function getType(): ?string
     {
         return $this->type;
@@ -132,6 +80,30 @@ class CourierDepart extends Courier
     public function setType(?string $type): self
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    public function getDateDepart(): ?string
+    {
+        return $this->dateDepart;
+    }
+
+    public function setDateDepart(string $dateDepart): self
+    {
+        $this->dateDepart = $dateDepart;
+
+        return $this;
+    }
+
+    public function getNumeroDepart(): ?string
+    {
+        return $this->numeroDepart;
+    }
+
+    public function setNumeroDepart(string $numeroDepart): self
+    {
+        $this->numeroDepart = $numeroDepart;
 
         return $this;
     }
