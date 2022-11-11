@@ -20,7 +20,7 @@ class AppFixtures extends Fixture
             $coordinateur=new Coordinateur();
             $profilCoordinateur=new Profil();
             $profilCoordinateur->setLibelle("COORDINATEUR");
-            $coordinateur->setUsername("admin1");
+            $coordinateur->setUsername("admin3");
             $coordinateur->setRoles(["ROLE_COORDINATEUR"]);
             $coordinateur->setProfil($profilCoordinateur);
             $coordinateur->setPrenom("Issa");
@@ -48,7 +48,7 @@ class AppFixtures extends Fixture
             $assistante=new Assistante();
             $profilAssistante=new Profil();
             $profilAssistante->setLibelle("ASSISTANTE");
-            $assistante->setUsername("admin3");
+            $assistante->setUsername("admin1");
             $assistante->setRoles(["ROLE_ASSISTANTE"]);
             $assistante->setProfil($profilAssistante);
             $assistante->setPrenom("Ndeye Gnilane");

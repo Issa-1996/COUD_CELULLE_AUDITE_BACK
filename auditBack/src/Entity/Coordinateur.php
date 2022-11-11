@@ -28,6 +28,8 @@ class Coordinateur extends User
      * @ApiSubresource()
      * @Groups({"Coordinateur:read"})
      * @Groups({"Coordinateur:write"})
+     * @Groups({"Courier:read"})
+     * @Groups({"Courier:write"})
      */
     private $FicheDeControle;
 

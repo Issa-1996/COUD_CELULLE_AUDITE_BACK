@@ -36,14 +36,17 @@ class Courier
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      * @Groups({"Courier:read"})
+     * @Groups({"Courier:write"})
      * @Groups({"CourierArriver:read"})
-     * @Groups({"CourierDepart:read"}) 
+     *  @Groups({"CourierDepart:read"})
+     * @Groups({"CourierDepart:write"})
      * @Groups({"User:read"})
      * @Groups({"FicheDeControle:read"})
      * @Groups({"FicheDeControle:write"})
      * @Groups({"Controleurs:read"})
      * @Groups({"Coordinateur:read"})
      * @Groups({"Assistante:read"})
+     * @Groups({"Assistante:write"})
      */
     private $id;
 
@@ -60,6 +63,7 @@ class Courier
      * @Groups({"Controleurs:read"})
      * @Groups({"Coordinateur:read"})
      * @Groups({"Assistante:read"})
+     * @Groups({"Assistante:write"})
      */
     private $numeroCourier;
 
@@ -76,6 +80,7 @@ class Courier
      * @Groups({"Controleurs:read"})
      * @Groups({"Coordinateur:read"})
      * @Groups({"Assistante:read"})
+     * @Groups({"Assistante:write"})
      */
     private $object;
 
@@ -85,8 +90,8 @@ class Courier
      * @Groups({"Courier:write"})
      * @Groups({"CourierArriver:read"})
      * @Groups({"CourierArriver:write"})
-     * @Groups({"CourierDepart:read"})
-     * @Groups({"CourierDepart:write"})
+     * @Groups({"Controleurs:read"})
+     * @Groups({"Coordinateur:read"})
      */
     private $assistante;
 
@@ -98,24 +103,12 @@ class Courier
      * @Groups({"CourierArriver:write"})
      * @Groups({"CourierDepart:read"})
      * @Groups({"CourierDepart:write"})
+     * @Groups({"Controleurs:read"})
+     * @Groups({"Assistante:read"})
+     * @Groups({"Assistante:write"})
+     * @Groups({"User:read"})
      */
     private $coordinateur;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"Courier:read"})
-     * @Groups({"Courier:write"})
-     * @Groups({"CourierArriver:read"})
-     * @Groups({"CourierArriver:write"})
-     * @Groups({"CourierDepart:read"})
-     * @Groups({"CourierDepart:write"})
-     * @Groups({"User:read"})
-     * @Groups({"Controleurs:read"})
-     * @Groups({"FicheDeControle:read"})
-     * @Groups({"Coordinateur:read"})
-     * @Groups({"Assistante:read"})
-     */
-    private $Date;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -130,6 +123,7 @@ class Courier
      * @Groups({"FicheDeControle:read"})
      * @Groups({"Coordinateur:read"})
      * @Groups({"Assistante:read"})
+     * @Groups({"Assistante:write"})
      */
     private $NumeroFacture;
 
@@ -146,6 +140,7 @@ class Courier
      * @Groups({"FicheDeControle:read"})
      * @Groups({"Coordinateur:read"})
      * @Groups({"Assistante:read"})
+     * @Groups({"Assistante:write"})
      */
     private $montant;
 
@@ -162,8 +157,24 @@ class Courier
      * @Groups({"FicheDeControle:read"})
      * @Groups({"Coordinateur:read"})
      * @Groups({"Assistante:read"})
+     * @Groups({"Assistante:write"})
      */
-    private $beneficiaire;
+    private $destinataire;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Controleurs::class, inversedBy="courrier")
+     * @Groups({"Courier:read"})
+     * @Groups({"Courier:write"})
+     * @Groups({"CourierArriver:read"})
+     * @Groups({"CourierArriver:write"})
+     * @Groups({"CourierDepart:read"})
+     * @Groups({"CourierDepart:write"})
+     * @Groups({"Assistante:read"})
+     * @Groups({"Assistante:write"})
+     * @Groups({"Coordinateur:read"})
+     * @Groups({"User:read"})
+     */
+    private $controleurs;
 
 
     public function getId(): ?int
@@ -219,18 +230,6 @@ class Courier
         return $this;
     }
 
-    public function getDate(): ?string
-    {
-        return $this->Date;
-    }
-
-    public function setDate(?string $Date): self
-    {
-        $this->Date = $Date;
-
-        return $this;
-    }
-
     public function getNumeroFacture(): ?string
     {
         return $this->NumeroFacture;
@@ -255,14 +254,26 @@ class Courier
         return $this;
     }
 
-    public function getBeneficiaire(): ?string
+    public function getDestinataire(): ?string
     {
-        return $this->beneficiaire;
+        return $this->destinataire;
     }
 
-    public function setBeneficiaire(?string $beneficiaire): self
+    public function setDestinataire(?string $destinataire): self
     {
-        $this->beneficiaire = $beneficiaire;
+        $this->destinataire = $destinataire;
+
+        return $this;
+    }
+
+    public function getControleurs(): ?Controleurs
+    {
+        return $this->controleurs;
+    }
+
+    public function setControleurs(?Controleurs $controleurs): self
+    {
+        $this->controleurs = $controleurs;
 
         return $this;
     }
