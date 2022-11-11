@@ -29,6 +29,7 @@ class CourierArriver extends Courier
      * @Groups({"User:read"})
      * @Groups({"Controleurs:read"})
      * @Groups({"FicheDeControle:read"})
+     * @Groups({"Assistante:read"})
      */
     private $expediteur;
 
@@ -39,6 +40,7 @@ class CourierArriver extends Courier
      * @Groups({"User:read"})
      * @Groups({"Controleurs:read"})
      * @Groups({"FicheDeControle:read"})
+     * @Groups({"Assistante:read"})
      */
     private $dateCorrespondance;
 
@@ -49,6 +51,7 @@ class CourierArriver extends Courier
      * @Groups({"User:read"})
      * @Groups({"Controleurs:read"})
      * @Groups({"FicheDeControle:read"})
+     * @Groups({"Assistante:read"})
      */
     private $numeroCorrespondance;
 
@@ -59,6 +62,7 @@ class CourierArriver extends Courier
      * @Groups({"User:read"})
      * @Groups({"Controleurs:read"})
      * @Groups({"FicheDeControle:read"})
+     * @Groups({"Assistante:read"})
      */
     private $dateReponse;
 
@@ -69,6 +73,7 @@ class CourierArriver extends Courier
      * @Groups({"User:read"})
      * @Groups({"Controleurs:read"})
      * @Groups({"FicheDeControle:read"})
+     * @Groups({"Assistante:read"})
      */
     private $numeroReponse;
 
@@ -78,6 +83,7 @@ class CourierArriver extends Courier
      * @Groups({"CourierArriver:read"})
      * @Groups({"CourierArriver:write"})
      * @Groups({"User:read"})
+     * @Groups({"Assistante:read"})
      */
     private $ficheDeControle;
 
@@ -88,6 +94,7 @@ class CourierArriver extends Courier
      * @Groups({"User:read"})
      * @Groups({"Courier:read"})
      * @Groups({"Courier:write"})
+     * @Groups({"Assistante:read"})
      */
     private $controleurs;
 
@@ -98,6 +105,7 @@ class CourierArriver extends Courier
      * @Groups({"User:read"})
      * @Groups({"FicheDeControle:read"})
      * @Groups({"FicheDeControle:write"})
+     * @Groups({"Assistante:read"})
      */
     private $etat;
 
@@ -108,8 +116,20 @@ class CourierArriver extends Courier
      * @Groups({"User:read"})
      * @Groups({"FicheDeControle:read"})
      * @Groups({"FicheDeControle:write"})
+     * @Groups({"Assistante:read"})
      */
     private $statut;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"CourierArriver:read"})
+     * @Groups({"CourierArriver:write"})
+     * @Groups({"User:read"})
+     * @Groups({"FicheDeControle:read"})
+     * @Groups({"FicheDeControle:write"})
+     * @Groups({"Assistante:read"})
+     */
+    private $typeDeCourrier;
 
 
     public function getExpediteur(): ?string
@@ -226,6 +246,18 @@ class CourierArriver extends Courier
     public function setStatut(?string $statut): self
     {
         $this->statut = $statut;
+
+        return $this;
+    }
+
+    public function getTypeDeCourrier(): ?string
+    {
+        return $this->typeDeCourrier;
+    }
+
+    public function setTypeDeCourrier(?string $typeDeCourrier): self
+    {
+        $this->typeDeCourrier = $typeDeCourrier;
 
         return $this;
     }
