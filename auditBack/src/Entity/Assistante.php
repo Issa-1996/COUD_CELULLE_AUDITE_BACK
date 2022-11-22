@@ -28,7 +28,6 @@ class Assistante extends User
      * @ApiSubresource()
      * @Groups({"Assistante:read"})
      * @Groups({"Assistante:write"})
-     * @Groups({"Courier:read"})
      * @Groups({"User:read"})
      */
     private $courier;

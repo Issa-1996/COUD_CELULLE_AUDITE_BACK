@@ -160,7 +160,7 @@ class User implements UserInterface
      * @Groups({"CourierArriver:read"})
      * @Groups({"FicheDeControle:read"})
      */
-    private $dateDeNaissance;
+    private $dateAjout;
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
@@ -311,14 +311,14 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getDateDeNaissance(): ?string
+    public function getDateAjout(): ?string
     {
-        return $this->dateDeNaissance;
+        return $this->dateAjout;
     }
 
-    public function setDateDeNaissance(?string $dateDeNaissance): self
+    public function setDateAjout(?string $dateAjout): self
     {
-        $this->dateDeNaissance = $dateDeNaissance;
+        $this->dateAjout = $dateAjout;
 
         return $this;
     }

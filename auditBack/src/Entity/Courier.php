@@ -38,7 +38,7 @@ class Courier
      * @Groups({"Courier:read"})
      * @Groups({"Courier:write"})
      * @Groups({"CourierArriver:read"})
-     *  @Groups({"CourierDepart:read"})
+     * @Groups({"CourierDepart:read"})
      * @Groups({"CourierDepart:write"})
      * @Groups({"User:read"})
      * @Groups({"FicheDeControle:read"})
@@ -90,6 +90,8 @@ class Courier
      * @Groups({"Courier:write"})
      * @Groups({"CourierArriver:read"})
      * @Groups({"CourierArriver:write"})
+     * @Groups({"CourierDepart:read"})
+     * @Groups({"CourierDepart:write"})
      * @Groups({"Controleurs:read"})
      * @Groups({"Coordinateur:read"})
      */
@@ -175,6 +177,23 @@ class Courier
      * @Groups({"User:read"})
      */
     private $controleurs;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"Courier:read"})
+     * @Groups({"Courier:write"})
+     * @Groups({"CourierArriver:read"})
+     * @Groups({"CourierArriver:write"})
+     * @Groups({"CourierDepart:read"})
+     * @Groups({"CourierDepart:write"})
+     * @Groups({"User:read"})
+     * @Groups({"FicheDeControle:read"})
+     * @Groups({"Controleurs:read"})
+     * @Groups({"Coordinateur:read"})
+     * @Groups({"Assistante:read"})
+     * @Groups({"Assistante:write"})
+     */
+    private $numeroCompte;
 
 
     public function getId(): ?int
@@ -274,6 +293,18 @@ class Courier
     public function setControleurs(?Controleurs $controleurs): self
     {
         $this->controleurs = $controleurs;
+
+        return $this;
+    }
+
+    public function getNumeroCompte(): ?string
+    {
+        return $this->numeroCompte;
+    }
+
+    public function setNumeroCompte(?string $numeroCompte): self
+    {
+        $this->numeroCompte = $numeroCompte;
 
         return $this;
     }
