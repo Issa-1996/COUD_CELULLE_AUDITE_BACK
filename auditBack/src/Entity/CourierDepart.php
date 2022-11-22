@@ -10,7 +10,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * @ApiResource(
  *  routePrefix="/coud",
- *     attributes={"pagination_items_per_page"=100000000},
+ *     attributes={"pagination_items_per_page"=100000000000},
  *     collectionOperations={"POST","GET"},
  *     itemOperations={"PUT", "GET"},
  *  normalizationContext={"groups"={"CourierDepart:read"}},
@@ -24,39 +24,37 @@ class CourierDepart extends Courier
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"CourierDepart:read"})
      * @Groups({"CourierDepart:write"})
-     * @Groups({"Assistante:read"})
-     * @Groups({"Assistante:write"})
-     * 
+     * @Groups({"User:read"})
      */
     private $observation;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"Courier:read"})
+     * @Groups({"Courier:write"})
      * @Groups({"CourierDepart:read"})
      * @Groups({"CourierDepart:write"})
-     * @Groups({"Assistante:read"})
-     * @Groups({"Assistante:write"})
-     * 
+     * @Groups({"User:read"})
      */
     private $type;
 
     /**
      * @ORM\Column(type="string")
+     * @Groups({"Courier:read"})
+     * @Groups({"Courier:write"})
      * @Groups({"CourierDepart:read"})
      * @Groups({"CourierDepart:write"})
-     * @Groups({"Assistante:read"})
-     * @Groups({"Assistante:write"})
-     * 
+     * @Groups({"User:read"})
      */
     private $dateDepart;
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
+     * @Groups({"Courier:read"})
+     * @Groups({"Courier:write"})
      * @Groups({"CourierDepart:read"})
      * @Groups({"CourierDepart:write"})
-     * @Groups({"Assistante:read"})
-     * @Groups({"Assistante:write"})
-     * 
+     * @Groups({"User:read"})
      */
     private $numeroDepart;
 

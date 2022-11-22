@@ -12,57 +12,85 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AppFixtures extends Fixture
 {
-    public function __construct(UserPasswordEncoderInterface $passwordEncoder){
+    public function __construct(UserPasswordEncoderInterface $passwordEncoder)
+    {
         $this->passwordEncoder = $passwordEncoder;
     }
     public function load(ObjectManager $manager): void
     {
-            $coordinateur=new Coordinateur();
-            $profilCoordinateur=new Profil();
-            $profilCoordinateur->setLibelle("COORDINATEUR");
-            $coordinateur->setUsername("admin3");
-            $coordinateur->setRoles(["ROLE_COORDINATEUR"]);
-            $coordinateur->setProfil($profilCoordinateur);
-            $coordinateur->setPrenom("Issa");
-            $coordinateur->setNom("SARR");
-            $coordinateur->setMatricule("00001");
-            $coordinateur->setDateDeNaissance("10/10/2020");
-            $coordinateur->setEmail("issa@gmail.com");
-            $password = $this->passwordEncoder->encodePassword($coordinateur,'password');
-            $coordinateur->setPassword($password);
 
-            $controleurs=new Controleurs();
-            $profilControleurs=new Profil();
-            $profilControleurs->setLibelle("CONTROLEURS");
-            $controleurs->setUsername("admin2");
-            $controleurs->setRoles(["ROLE_CONTROLEURS"]);
-            $controleurs->setProfil($profilControleurs);
-            $controleurs->setPrenom("Cheikh Ibra");
-            $controleurs->setNom("DIOP");
-            $controleurs->setMatricule("00002");
-            $controleurs->setDateDeNaissance("10/10/2020");
-            $controleurs->setEmail("cheikhibra@gmail.com");
-            $password = $this->passwordEncoder->encodePassword($controleurs,'password');
-            $controleurs->setPassword($password);
+        $coordinateur = new Coordinateur();
+        $profilCoordonateur=new Profil();
+        $profilCoordonateur->setLibelle("COORDONATEUR");
+        $coordinateur->setUsername("coordonateur1");
+        $coordinateur->setProfil($profilCoordonateur);
+        $coordinateur->setPrenom("Monsieur");
+        $coordinateur->setRoles(["ROLE_COORDONATEUR"]);
+        $coordinateur->setNom("SYLLA");
+        $coordinateur->setMatricule("1");
+        $coordinateur->setDateAjout("01/10/2020");
+        $coordinateur->setEmail("monsieursylla@gmail.com");
+        $password = $this->passwordEncoder->encodePassword($coordinateur, 'password');
+        $coordinateur->setPassword($password);
 
-            $assistante=new Assistante();
-            $profilAssistante=new Profil();
-            $profilAssistante->setLibelle("ASSISTANTE");
-            $assistante->setUsername("admin1");
-            $assistante->setRoles(["ROLE_ASSISTANTE"]);
-            $assistante->setProfil($profilAssistante);
-            $assistante->setPrenom("Ndeye Gnilane");
-            $assistante->setNom("FAYE");
-            $assistante->setMatricule("00003");
-            $assistante->setDateDeNaissance("10/10/2020");
-            $assistante->setEmail("ndeyegnilane@gmail.com");
-            $password = $this->passwordEncoder->encodePassword($assistante,'password');
-            $assistante->setPassword($password);
+        $controleurs1 = new Controleurs();
+        $profilControleur=new Profil();
+        $profilControleur->setLibelle("CONTROLEUR");
+        $controleurs1->setUsername("controleur1");
+        $controleurs1->setRoles(["ROLE_CONTROLEUR"]);
+        $controleurs1->setProfil($profilControleur);
+        $controleurs1->setPrenom("Issa SARR");
+        $controleurs1->setNom("TRAVEAUX");
+        $controleurs1->setMatricule("2");
+        $controleurs1->setDateAjout("02/10/2020");
+        $controleurs1->setEmail("issasarr@gmail.com");
+        $password = $this->passwordEncoder->encodePassword($controleurs1, 'password');
+        $controleurs1->setPassword($password);
 
-    
-            $manager->persist($assistante);
-            $manager->persist($controleurs);
-            $manager->persist($coordinateur);
-            $manager->flush();
+        $controleurs2 = new Controleurs();
+        $controleurs2->setUsername("controleur2");
+        $controleurs2->setRoles(["ROLE_CONTROLEUR"]);
+        $controleurs2->setProfil($profilControleur);
+        $controleurs2->setPrenom("Cheikh Ibra DIOP");
+        $controleurs2->setNom("FATURE");
+        $controleurs2->setMatricule("3");
+        $controleurs2->setDateAjout("03/10/2020");
+        $controleurs2->setEmail("cheikhibra@gmail.com");
+        $password = $this->passwordEncoder->encodePassword($controleurs2, 'password');
+        $controleurs2->setPassword($password);
+
+        $controleurs3 = new Controleurs();
+        $controleurs3->setUsername("controleur3");
+        $controleurs3->setRoles(["ROLE_CONTROLEUR"]);
+        $controleurs3->setProfil($profilControleur);
+        $controleurs3->setPrenom("Ndeye Gnilane FAYE");
+        $controleurs3->setNom("MEDICALE");
+        $controleurs3->setMatricule("4");
+        $controleurs3->setDateAjout("04/10/2020");
+        $controleurs3->setEmail("gnilane@gmail.com");
+        $password = $this->passwordEncoder->encodePassword($controleurs3, 'password');
+        $controleurs3->setPassword($password);
+
+        $assistante = new Assistante();
+        $profilAssistante=new Profil();
+        $profilAssistante->setLibelle("ASSISTANTE");
+        $assistante->setUsername("assistante1");
+        $assistante->setRoles(["ROLE_ASSISTANTE"]);
+        $assistante->setProfil($profilAssistante);
+        $assistante->setPrenom("Madame");
+        $assistante->setNom("SENE");
+        $assistante->setMatricule("5");
+        $assistante->setDateAjout("05/10/2020");
+        $assistante->setEmail("madamesene@gmail.com");
+        $password = $this->passwordEncoder->encodePassword($assistante, 'password');
+        $assistante->setPassword($password);
+
+
+        $manager->persist($assistante);
+        $manager->persist($coordinateur);
+        $manager->persist($controleurs1);
+        $manager->persist($controleurs2);
+        $manager->persist($controleurs3);
+        $manager->flush();
     }
 }
