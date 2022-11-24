@@ -186,11 +186,6 @@ class User implements UserInterface
      */
     private $profil;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $date;
-
     public function getId(): ?int
     {
         return $this->id;
@@ -343,18 +338,6 @@ class User implements UserInterface
     public function setProfil(?Profil $profil): self
     {
         $this->profil = $profil;
-
-        return $this;
-    }
-
-    public function getDate(): ?string
-    {
-        return $this->date;
-    }
-
-    public function setDate(string $date): self
-    {
-        $this->date = $date;
 
         return $this;
     }
