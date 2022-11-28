@@ -12,7 +12,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *  routePrefix="/coud",
  *     attributes={"pagination_items_per_page"=100000000000},
  *     collectionOperations={"POST","GET"},
- *     itemOperations={"PUT", "GET"},
+ *     itemOperations={"PUT","GET"},
  *  normalizationContext={"groups"={"CourierDepart:read"}},
  *  denormalizationContext={"groups"={"CourierDepart:write"}},
  * )
