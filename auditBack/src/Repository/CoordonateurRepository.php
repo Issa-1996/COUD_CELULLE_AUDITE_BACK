@@ -2,32 +2,32 @@
 
 namespace App\Repository;
 
-use App\Entity\Coordinateur;
+use App\Entity\Coordonateur;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Coordinateur>
+ * @extends ServiceEntityRepository<Coordonateur>
  *
- * @method Coordinateur|null find($id, $lockMode = null, $lockVersion = null)
- * @method Coordinateur|null findOneBy(array $criteria, array $orderBy = null)
- * @method Coordinateur[]    findAll()
- * @method Coordinateur[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Coordonateur|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Coordonateur|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Coordonateur[]    findAll()
+ * @method Coordonateur[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class CoordinateurRepository extends ServiceEntityRepository
+class CoordonateurRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Coordinateur::class);
+        parent::__construct($registry, Coordonateur::class);
     }
 
     /**
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function add(Coordinateur $entity, bool $flush = true): void
+    public function add(Coordonateur $entity, bool $flush = true): void
     {
         $this->_em->persist($entity);
         if ($flush) {
@@ -39,7 +39,7 @@ class CoordinateurRepository extends ServiceEntityRepository
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function remove(Coordinateur $entity, bool $flush = true): void
+    public function remove(Coordonateur $entity, bool $flush = true): void
     {
         $this->_em->remove($entity);
         if ($flush) {
@@ -48,7 +48,7 @@ class CoordinateurRepository extends ServiceEntityRepository
     }
 
     // /**
-    //  * @return Coordinateur[] Returns an array of Coordinateur objects
+    //  * @return Coordonateur[] Returns an array of Coordonateur objects
     //  */
     /*
     public function findByExampleField($value)
@@ -65,7 +65,7 @@ class CoordinateurRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Coordinateur
+    public function findOneBySomeField($value): ?Coordonateur
     {
         return $this->createQueryBuilder('c')
             ->andWhere('c.exampleField = :val')

@@ -2,32 +2,32 @@
 
 namespace App\Repository;
 
-use App\Entity\Controleurs;
+use App\Entity\Controleur;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Controleurs>
+ * @extends ServiceEntityRepository<Controleur>
  *
- * @method Controleurs|null find($id, $lockMode = null, $lockVersion = null)
- * @method Controleurs|null findOneBy(array $criteria, array $orderBy = null)
- * @method Controleurs[]    findAll()
- * @method Controleurs[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Controleur|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Controleur|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Controleur[]    findAll()
+ * @method Controleur[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ControleursRepository extends ServiceEntityRepository
+class ControleurRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Controleurs::class);
+        parent::__construct($registry, Controleur::class);
     }
 
     /**
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function add(Controleurs $entity, bool $flush = true): void
+    public function add(Controleur $entity, bool $flush = true): void
     {
         $this->_em->persist($entity);
         if ($flush) {
@@ -39,7 +39,7 @@ class ControleursRepository extends ServiceEntityRepository
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function remove(Controleurs $entity, bool $flush = true): void
+    public function remove(Controleur $entity, bool $flush = true): void
     {
         $this->_em->remove($entity);
         if ($flush) {
@@ -48,7 +48,7 @@ class ControleursRepository extends ServiceEntityRepository
     }
 
     // /**
-    //  * @return Controleurs[] Returns an array of Controleurs objects
+    //  * @return Controleur[] Returns an array of Controleur objects
     //  */
     /*
     public function findByExampleField($value)
@@ -65,7 +65,7 @@ class ControleursRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Controleurs
+    public function findOneBySomeField($value): ?Controleur
     {
         return $this->createQueryBuilder('c')
             ->andWhere('c.exampleField = :val')

@@ -27,8 +27,8 @@ class FicheDeControle
      * @Groups({"FicheDeControle:write"})
      * @Groups({"CourierArriver:read"})
      * @Groups({"CourierArriver:write"})
-     * @Groups({"Controleurs:read"})
-     * @Groups({"Coordinateur:read"})
+     * @Groups({"Controleur:read"})
+     * @Groups({"Coordonateur:read"})
      * @Groups({"User:read"})
      */
     private $id;
@@ -38,8 +38,8 @@ class FicheDeControle
      * @Groups({"FicheDeControle:read"})
      * @Groups({"FicheDeControle:write"})
      * @Groups({"CourierArriver:read"})
-     * @Groups({"Controleurs:read"})
-     * @Groups({"Coordinateur:read"})
+     * @Groups({"Controleur:read"})
+     * @Groups({"Coordonateur:read"})
      * @Groups({"User:read"})
      */
     private $nomControleur;
@@ -49,8 +49,8 @@ class FicheDeControle
      * @Groups({"FicheDeControle:read"})
      * @Groups({"FicheDeControle:write"})
      * @Groups({"CourierArriver:read"})
-     * @Groups({"Controleurs:read"})
-     * @Groups({"Coordinateur:read"})
+     * @Groups({"Controleur:read"})
+     * @Groups({"Coordonateur:read"})
      * @Groups({"User:read"})
      */
     private $avisControleur;
@@ -60,8 +60,8 @@ class FicheDeControle
      * @Groups({"FicheDeControle:read"})
      * @Groups({"FicheDeControle:write"})
      * @Groups({"CourierArriver:read"})
-     * @Groups({"Controleurs:read"})
-     * @Groups({"Coordinateur:read"})
+     * @Groups({"Controleur:read"})
+     * @Groups({"Coordonateur:read"})
      * @Groups({"User:read"})
      */
     private $motivation;
@@ -71,32 +71,32 @@ class FicheDeControle
      * @Groups({"FicheDeControle:read"})
      * @Groups({"FicheDeControle:write"})
      * @Groups({"CourierArriver:read"})
-     * @Groups({"Controleurs:read"})
-     * @Groups({"Coordinateur:read"})
+     * @Groups({"Controleur:read"})
+     * @Groups({"Coordonateur:read"})
      * @Groups({"User:read"})
      */
     private $recommandations;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Controleurs::class, inversedBy="FicheDeControle")
+     * @ORM\ManyToOne(targetEntity=Controleur::class, inversedBy="FicheDeControle")
      * @Groups({"FicheDeControle:read"})
      * @Groups({"FicheDeControle:write"})
      */
-    private $controleurs;
+    private $controleur;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Coordinateur::class, inversedBy="FicheDeControle")
+     * @ORM\ManyToOne(targetEntity=Coordonateur::class, inversedBy="FicheDeControle")
      * @Groups({"FicheDeControle:read"})
      * @Groups({"FicheDeControle:write"})
      */
-    private $coordinateur;
+    private $coordonateur;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"FicheDeControle:read"})
      * @Groups({"FicheDeControle:write"})
      * @Groups({"CourierArriver:read"})
-     * @Groups({"Controleurs:read"})
+     * @Groups({"Controleur:read"})
      * @Groups({"User:read"})
      */
     private $objet;
@@ -105,7 +105,7 @@ class FicheDeControle
      * @ORM\OneToOne(targetEntity=CourierArriver::class, inversedBy="ficheDeControle", cascade={"persist", "remove"})
      * @Groups({"FicheDeControle:read"})
      * @Groups({"FicheDeControle:write"})
-     * @Groups({"Controleurs:read"})
+     * @Groups({"Controleur:read"})
      * @Groups({"User:read"})
      */
     private $courrierArriver;
@@ -164,26 +164,26 @@ class FicheDeControle
         return $this;
     }
 
-    public function getControleurs(): ?Controleurs
+    public function getControleur(): ?Controleur
     {
-        return $this->controleurs;
+        return $this->controleur;
     }
 
-    public function setControleurs(?Controleurs $controleurs): self
+    public function setControleur(?Controleur $controleur): self
     {
-        $this->controleurs = $controleurs;
+        $this->controleur = $controleur;
 
         return $this;
     }
 
-    public function getCoordinateur(): ?Coordinateur
+    public function getCoordonateur(): ?Coordonateur
     {
-        return $this->coordinateur;
+        return $this->coordonateur;
     }
 
-    public function setCoordinateur(?Coordinateur $coordinateur): self
+    public function setCoordonateur(?Coordonateur $coordonateur): self
     {
-        $this->coordinateur = $coordinateur;
+        $this->coordonateur = $coordonateur;
 
         return $this;
     }

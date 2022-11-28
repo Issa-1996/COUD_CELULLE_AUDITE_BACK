@@ -3,7 +3,7 @@
 namespace App\Entity;
 
 use App\Entity\Assistante;
-use App\Entity\Coordinateur;
+use App\Entity\Coordonateur;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\CourierRepository;
 use Doctrine\ORM\Mapping\InheritanceType;
@@ -43,8 +43,8 @@ class Courier
      * @Groups({"User:read"})
      * @Groups({"FicheDeControle:read"})
      * @Groups({"FicheDeControle:write"})
-     * @Groups({"Controleurs:read"})
-     * @Groups({"Coordinateur:read"})
+     * @Groups({"Controleur:read"})
+     * @Groups({"Coordonateur:read"})
      * @Groups({"Assistante:read"})
      * @Groups({"Assistante:write"})
      */
@@ -60,8 +60,8 @@ class Courier
      * @Groups({"CourierDepart:write"})
      * @Groups({"User:read"})
      * @Groups({"FicheDeControle:read"})
-     * @Groups({"Controleurs:read"})
-     * @Groups({"Coordinateur:read"})
+     * @Groups({"Controleur:read"})
+     * @Groups({"Coordonateur:read"})
      * @Groups({"Assistante:read"})
      * @Groups({"Assistante:write"})
      */
@@ -77,8 +77,8 @@ class Courier
      * @Groups({"CourierDepart:write"})
      * @Groups({"User:read"})
      * @Groups({"FicheDeControle:read"})
-     * @Groups({"Controleurs:read"})
-     * @Groups({"Coordinateur:read"})
+     * @Groups({"Controleur:read"})
+     * @Groups({"Coordonateur:read"})
      * @Groups({"Assistante:read"})
      * @Groups({"Assistante:write"})
      */
@@ -92,25 +92,25 @@ class Courier
      * @Groups({"CourierArriver:write"})
      * @Groups({"CourierDepart:read"})
      * @Groups({"CourierDepart:write"})
-     * @Groups({"Controleurs:read"})
-     * @Groups({"Coordinateur:read"})
+     * @Groups({"Controleur:read"})
+     * @Groups({"Coordonateur:read"})
      */
     private $assistante;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Coordinateur::class, inversedBy="courier",cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity=Coordonateur::class, inversedBy="courier",cascade={"persist"})
      * @Groups({"Courier:read"})
      * @Groups({"Courier:write"})
      * @Groups({"CourierArriver:read"})
      * @Groups({"CourierArriver:write"})
      * @Groups({"CourierDepart:read"})
      * @Groups({"CourierDepart:write"})
-     * @Groups({"Controleurs:read"})
+     * @Groups({"Controleur:read"})
      * @Groups({"Assistante:read"})
      * @Groups({"Assistante:write"})
      * @Groups({"User:read"})
      */
-    private $coordinateur;
+    private $coordonateur;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -121,9 +121,9 @@ class Courier
      * @Groups({"CourierDepart:read"})
      * @Groups({"CourierDepart:write"})
      * @Groups({"User:read"})
-     * @Groups({"Controleurs:read"})
+     * @Groups({"Controleur:read"})
      * @Groups({"FicheDeControle:read"})
-     * @Groups({"Coordinateur:read"})
+     * @Groups({"Coordonateur:read"})
      * @Groups({"Assistante:read"})
      * @Groups({"Assistante:write"})
      */
@@ -138,9 +138,9 @@ class Courier
      * @Groups({"CourierDepart:read"})
      * @Groups({"CourierDepart:write"})
      * @Groups({"User:read"})
-     * @Groups({"Controleurs:read"})
+     * @Groups({"Controleur:read"})
      * @Groups({"FicheDeControle:read"})
-     * @Groups({"Coordinateur:read"})
+     * @Groups({"Coordonateur:read"})
      * @Groups({"Assistante:read"})
      * @Groups({"Assistante:write"})
      */
@@ -155,16 +155,16 @@ class Courier
      * @Groups({"CourierDepart:read"})
      * @Groups({"CourierDepart:write"})
      * @Groups({"User:read"})
-     * @Groups({"Controleurs:read"})
+     * @Groups({"Controleur:read"})
      * @Groups({"FicheDeControle:read"})
-     * @Groups({"Coordinateur:read"})
+     * @Groups({"Coordonateur:read"})
      * @Groups({"Assistante:read"})
      * @Groups({"Assistante:write"})
      */
     private $destinataire;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Controleurs::class, inversedBy="courrier")
+     * @ORM\ManyToOne(targetEntity=Controleur::class, inversedBy="courrier")
      * @Groups({"Courier:read"})
      * @Groups({"Courier:write"})
      * @Groups({"CourierArriver:read"})
@@ -173,10 +173,10 @@ class Courier
      * @Groups({"CourierDepart:write"})
      * @Groups({"Assistante:read"})
      * @Groups({"Assistante:write"})
-     * @Groups({"Coordinateur:read"})
+     * @Groups({"Coordonateur:read"})
      * @Groups({"User:read"})
      */
-    private $controleurs;
+    private $controleur;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -188,8 +188,8 @@ class Courier
      * @Groups({"CourierDepart:write"})
      * @Groups({"User:read"})
      * @Groups({"FicheDeControle:read"})
-     * @Groups({"Controleurs:read"})
-     * @Groups({"Coordinateur:read"})
+     * @Groups({"Controleur:read"})
+     * @Groups({"Coordonateur:read"})
      * @Groups({"Assistante:read"})
      * @Groups({"Assistante:write"})
      */
@@ -237,14 +237,14 @@ class Courier
         return $this;
     }
 
-    public function getCoordinateur(): ?Coordinateur
+    public function getCoordonateur(): ?Coordonateur
     {
-        return $this->coordinateur;
+        return $this->coordonateur;
     }
 
-    public function setCoordinateur(?Coordinateur $coordinateur): self
+    public function setCoordonateur(?Coordonateur $coordonateur): self
     {
-        $this->coordinateur = $coordinateur;
+        $this->coordonateur = $coordonateur;
 
         return $this;
     }
@@ -285,14 +285,14 @@ class Courier
         return $this;
     }
 
-    public function getControleurs(): ?Controleurs
+    public function getControleur(): ?Controleur
     {
-        return $this->controleurs;
+        return $this->controleur;
     }
 
-    public function setControleurs(?Controleurs $controleurs): self
+    public function setControleur(?Controleur $controleur): self
     {
-        $this->controleurs = $controleurs;
+        $this->controleur = $controleur;
 
         return $this;
     }

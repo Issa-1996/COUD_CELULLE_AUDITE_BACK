@@ -3,7 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use App\Repository\CoordinateurRepository;
+use App\Repository\ControleurRepository;
 use Doctrine\Common\Collections\Collection;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiSubresource;
@@ -13,41 +13,41 @@ use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * @ApiResource(
  *  routePrefix="/coud",
- *     collectionOperations={"POST","GET"},
- *     itemOperations={"PUT", "GET"},
- *  normalizationContext={"groups"={"Coordinateur:read"}},
- *  denormalizationContext={"groups"={"Coordinateur:write"}},
+*     collectionOperations={"POST","GET"},
+*     itemOperations={"PUT","GET"},
+*   normalizationContext={"groups"={"Controleur:read"}},
+ *  denormalizationContext={"groups"={"Controleur:write"}},
  * )
- * @ORM\Entity(repositoryClass=CoordinateurRepository::class)
+ * @ORM\Entity(repositoryClass=ControleurRepository::class)
  */
-class Coordinateur extends User
+class Controleur extends User
 {
-
     /**
-     * @ORM\OneToMany(targetEntity=FicheDeControle::class, mappedBy="coordinateur")
+     * @ORM\OneToMany(targetEntity=FicheDeControle::class, mappedBy="controleur",cascade={"persist"})
      * @ApiSubresource()
-     * @Groups({"Coordinateur:read"})
-     * @Groups({"Coordinateur:write"})
+     * @Groups({"Controleur:read"})
+     * @Groups({"Controleur:write"})
+     * @Groups({"User:read"})
      * @Groups({"Courier:read"})
      * @Groups({"Courier:write"})
      */
     private $FicheDeControle;
 
     /**
-     * @ORM\OneToMany(targetEntity=Courier::class, mappedBy="coordinateur")
-     * @ApiSubresource()
-     * @Groups({"Coordinateur:read"})
-     * @Groups({"Coordinateur:write"})
+     * @ORM\OneToMany(targetEntity=Courier::class, mappedBy="controleur")
+     * @Groups({"Controleur:read"})
+     * @Groups({"Controleur:write"})
+     * @Groups({"User:read"})
      */
-    private $courier;
+    private $courrier;
+
 
     public function __construct()
     {
         $this->FicheDeControle = new ArrayCollection();
-        $this->courier = new ArrayCollection();
+        $this->courierArrivers = new ArrayCollection();
+        $this->courrier = new ArrayCollection();
     }
-
-    
 
     /**
      * @return Collection<int, FicheDeControle>
@@ -61,7 +61,7 @@ class Coordinateur extends User
     {
         if (!$this->FicheDeControle->contains($ficheDeControle)) {
             $this->FicheDeControle[] = $ficheDeControle;
-            $ficheDeControle->setCoordinateur($this);
+            $ficheDeControle->setControleur($this);
         }
 
         return $this;
@@ -71,8 +71,8 @@ class Coordinateur extends User
     {
         if ($this->FicheDeControle->removeElement($ficheDeControle)) {
             // set the owning side to null (unless already changed)
-            if ($ficheDeControle->getCoordinateur() === $this) {
-                $ficheDeControle->setCoordinateur(null);
+            if ($ficheDeControle->getControleur() === $this) {
+                $ficheDeControle->setControleur(null);
             }
         }
 
@@ -82,27 +82,27 @@ class Coordinateur extends User
     /**
      * @return Collection<int, Courier>
      */
-    public function getCourier(): Collection
+    public function getCourrier(): Collection
     {
-        return $this->courier;
+        return $this->courrier;
     }
 
-    public function addCourier(Courier $courier): self
+    public function addCourrier(Courier $courrier): self
     {
-        if (!$this->courier->contains($courier)) {
-            $this->courier[] = $courier;
-            $courier->setCoordinateur($this);
+        if (!$this->courrier->contains($courrier)) {
+            $this->courrier[] = $courrier;
+            $courrier->setControleur($this);
         }
 
         return $this;
     }
 
-    public function removeCourier(Courier $courier): self
+    public function removeCourrier(Courier $courrier): self
     {
-        if ($this->courier->removeElement($courier)) {
+        if ($this->courrier->removeElement($courrier)) {
             // set the owning side to null (unless already changed)
-            if ($courier->getCoordinateur() === $this) {
-                $courier->setCoordinateur(null);
+            if ($courrier->getControleur() === $this) {
+                $courrier->setControleur(null);
             }
         }
 

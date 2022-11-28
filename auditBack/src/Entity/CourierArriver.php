@@ -26,7 +26,7 @@ class CourierArriver extends Courier
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"CourierArriver:read"})
      * @Groups({"CourierArriver:write"})
-     * @Groups({"Controleurs:read"})
+     * @Groups({"Controleur:read"})
      * @Groups({"User:read"})
      * @Groups({"FicheDeControle:read"})
      * @Groups({"Assistante:read"})
